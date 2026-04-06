@@ -18,9 +18,11 @@ const MOCK: Message[] = [
 
 type Props = {
   chatId: string;
+  /** When false, list is static (e.g. chat peek preview). */
+  scrollEnabled?: boolean;
 };
 
-export function MessageList({ chatId }: Props) {
+export function MessageList({ chatId, scrollEnabled = true }: Props) {
   const scheme = useColorScheme();
   const t = appTheme[scheme];
   const data = MOCK.filter((m) => m.chatId === chatId);
@@ -29,6 +31,7 @@ export function MessageList({ chatId }: Props) {
     <FlatList
       data={data}
       keyExtractor={(item) => item.id}
+      scrollEnabled={scrollEnabled}
       contentContainerStyle={[styles.list, { backgroundColor: t.chatWallpaper }]}
       renderItem={({ item, index }) => {
         const prev = index > 0 ? data[index - 1] : null;

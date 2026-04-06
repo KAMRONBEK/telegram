@@ -11,16 +11,24 @@ type Props = {
   subtitle?: string;
   /** Split / desktop: hide back (list stays visible beside chat). */
   embedded?: boolean;
+  /** Peek preview: minimal header (no call / video actions). */
+  preview?: boolean;
 };
 
-export function ChatHeader({ title, subtitle = 'last seen recently', embedded = false }: Props) {
+export function ChatHeader({
+  title,
+  subtitle = 'last seen recently',
+  embedded = false,
+  preview = false,
+}: Props) {
   const router = useRouter();
   const scheme = useColorScheme();
   const t = appTheme[scheme];
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.wrap, { paddingTop: insets.top, backgroundColor: t.headerBar }]}>
+    <View
+      style={[styles.wrap, { paddingTop: preview ? 8 : insets.top, backgroundColor: t.headerBar }]}>
       <View style={styles.row}>
         {embedded ? (
           <View style={styles.backBtn} />
@@ -33,20 +41,24 @@ export function ChatHeader({ title, subtitle = 'last seen recently', embedded = 
           <Text style={[styles.title, { color: t.headerText }]} numberOfLines={1}>
             {title}
           </Text>
-          {subtitle ? (
+          {subtitle && !preview ? (
             <Text style={[styles.subtitle, { color: t.headerSubtitle }]} numberOfLines={1}>
               {subtitle}
             </Text>
           ) : null}
         </View>
-        <View style={styles.actions}>
-          <Pressable hitSlop={8} style={styles.iconBtn}>
-            <Ionicons name="call-outline" size={22} color={t.headerText} />
-          </Pressable>
-          <Pressable hitSlop={8} style={styles.iconBtn}>
-            <Ionicons name="videocam-outline" size={24} color={t.headerText} />
-          </Pressable>
-        </View>
+        {preview ? (
+          <View style={styles.actions} />
+        ) : (
+          <View style={styles.actions}>
+            <Pressable hitSlop={8} style={styles.iconBtn}>
+              <Ionicons name="call-outline" size={22} color={t.headerText} />
+            </Pressable>
+            <Pressable hitSlop={8} style={styles.iconBtn}>
+              <Ionicons name="videocam-outline" size={24} color={t.headerText} />
+            </Pressable>
+          </View>
+        )}
       </View>
     </View>
   );

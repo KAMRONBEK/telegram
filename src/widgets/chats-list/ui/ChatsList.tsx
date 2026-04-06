@@ -10,6 +10,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { LongPressGestureHandler, State } from 'react-native-gesture-handler';
 
 import type { Chat } from '@/entities/chat';
 import { useGetChatsQuery } from '@/entities/chat';
@@ -19,6 +20,8 @@ import {
   ChatListContextMenu,
   type ChatListMenuAction,
 } from '@/shared/ui/chat-list-context-menu';
+
+import { ChatPeekOverlay } from './ChatPeekOverlay';
 
 const AVATAR_COLORS = ['#5B9BD5', '#70B477', '#9B7ED9', '#E67A7A', '#D4A35B', '#5C9EAD', '#4A90D9'];
 
@@ -54,6 +57,7 @@ export function ChatsList({
   const [menu, setMenu] = useState<null | { chatId: string; anchor: { x: number; y: number } }>(
     null
   );
+  const [peekChatId, setPeekChatId] = useState<string | null>(null);
 
   const rows = useMemo(() => {
     if (!data) return [];
@@ -122,6 +126,8 @@ export function ChatsList({
             selected={item.id === selectedChatId}
             onPress={() => handlePress(item.id)}
             onOpenMenu={(anchor) => setMenu({ chatId: item.id, anchor })}
+            onPeekOpen={() => setPeekChatId(item.id)}
+            onPeekClose={() => setPeekChatId(null)}
           />
         )}
       />
@@ -134,6 +140,9 @@ export function ChatsList({
           chatId={menu.chatId}
           onMenuAction={onMenuAction}
         />
+      ) : null}
+      {peekChatId !== null ? (
+        <ChatPeekOverlay visible chatId={peekChatId} scheme={scheme} />
       ) : null}
     </>
   );
@@ -170,6 +179,8 @@ function ChatRow({
   chat,
   onPress,
   onOpenMenu,
+  onPeekOpen,
+  onPeekClose,
   scheme,
   avatarBg,
   selected,
@@ -177,18 +188,21 @@ function ChatRow({
   chat: Chat;
   onPress: () => void;
   onOpenMenu: (anchor: { x: number; y: number }) => void;
+  onPeekOpen: () => void;
+  onPeekClose: () => void;
   scheme: 'light' | 'dark';
   avatarBg: string;
   selected: boolean;
 }) {
   const t = appTheme[scheme];
   const bg = selected ? t.listItemActive : t.chatListRow;
-  const rowRef = useRef<View>(null);
+  const bodyRef = useRef<View>(null);
+  const skipNextAvatarTap = useRef(false);
 
   const openFromLongPress = (e: GestureResponderEvent) => {
     const { pageX, pageY } = e.nativeEvent;
     if (Platform.OS !== 'web' && pageX === 0 && pageY === 0) {
-      rowRef.current?.measureInWindow((left, top, width, height) => {
+      bodyRef.current?.measureInWindow((left, top, width, height) => {
         onOpenMenu({ x: left + width / 2, y: top + height / 2 });
       });
       return;
@@ -196,7 +210,7 @@ function ChatRow({
     onOpenMenu({ x: pageX, y: pageY });
   };
 
-  const webContextMenuProps =
+  const webRowContextMenu =
     Platform.OS === 'web'
       ? {
           onContextMenu: (e: unknown) => {
@@ -206,7 +220,7 @@ function ChatRow({
         }
       : {};
 
-  const longPressProps =
+  const bodyLongPressProps =
     Platform.OS === 'web'
       ? {}
       : {
@@ -214,42 +228,90 @@ function ChatRow({
           delayLongPress: 450 as const,
         };
 
-  return (
-    <View ref={rowRef} collapsable={false} style={styles.rowOuter}>
+  const onAvatarPeekStateChange = (state: number) => {
+    if (state === State.ACTIVE) {
+      skipNextAvatarTap.current = true;
+      onPeekOpen();
+    }
+    if (state === State.END || state === State.CANCELLED || state === State.FAILED) {
+      onPeekClose();
+    }
+  };
+
+  const avatarLetter = chat.title.slice(0, 1).toUpperCase();
+
+  const avatarVisual = (
+    <View style={[styles.avatar, { backgroundColor: avatarBg }]}>
+      <Text style={styles.avatarText}>{avatarLetter}</Text>
+    </View>
+  );
+
+  const avatarNode =
+    Platform.OS === 'web' ? (
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={`Chat ${chat.title}`}
         onPress={onPress}
-        {...longPressProps}
-        {...webContextMenuProps}
-        style={({ pressed }) => [
-          styles.row,
-          {
-            backgroundColor: pressed ? t.chatListRowPressed : bg,
-          },
-        ]}>
-        <View style={[styles.avatar, { backgroundColor: avatarBg }]}>
-          <Text style={styles.avatarText}>{chat.title.slice(0, 1).toUpperCase()}</Text>
-        </View>
-        <View style={styles.rowBody}>
-          <View style={styles.rowTop}>
-            <Text style={[styles.title, { color: t.textPrimary }]} numberOfLines={1}>
-              {chat.title}
-            </Text>
-            <Text style={[styles.time, { color: t.messageTime }]}>{chat.time}</Text>
-          </View>
-          <View style={styles.rowBottom}>
-            <Text style={[styles.preview, { color: t.textSecondary }]} numberOfLines={1}>
-              {chat.lastMessage}
-            </Text>
-            {chat.unread > 0 ? (
-              <View style={[styles.badge, { backgroundColor: t.badgeUnread }]}>
-                <Text style={[styles.badgeText, { color: t.badgeText }]}>{chat.unread}</Text>
-              </View>
-            ) : null}
-          </View>
-        </View>
+        style={({ pressed }) => [pressed && { opacity: 0.88 }]}>
+        {avatarVisual}
       </Pressable>
+    ) : (
+      <LongPressGestureHandler
+        minDurationMs={350}
+        onHandlerStateChange={(e) => onAvatarPeekStateChange(e.nativeEvent.state)}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`Chat ${chat.title}`}
+          onPress={() => {
+            if (skipNextAvatarTap.current) {
+              skipNextAvatarTap.current = false;
+              return;
+            }
+            onPress();
+          }}
+          style={({ pressed }) => [pressed && { opacity: 0.88 }]}>
+          {avatarVisual}
+        </Pressable>
+      </LongPressGestureHandler>
+    );
+
+  return (
+    <View collapsable={false} style={styles.rowOuter} {...webRowContextMenu}>
+      <View style={[styles.row, { backgroundColor: bg }]}>
+        {avatarNode}
+        <Pressable
+          ref={bodyRef}
+          collapsable={false}
+          accessibilityRole="button"
+          accessibilityLabel={`Chat ${chat.title}`}
+          onPress={onPress}
+          {...bodyLongPressProps}
+          style={({ pressed }) => [
+            styles.rowBodyPressable,
+            {
+              backgroundColor: pressed ? t.chatListRowPressed : 'transparent',
+            },
+          ]}>
+          <View style={styles.rowBody}>
+            <View style={styles.rowTop}>
+              <Text style={[styles.title, { color: t.textPrimary }]} numberOfLines={1}>
+                {chat.title}
+              </Text>
+              <Text style={[styles.time, { color: t.messageTime }]}>{chat.time}</Text>
+            </View>
+            <View style={styles.rowBottom}>
+              <Text style={[styles.preview, { color: t.textSecondary }]} numberOfLines={1}>
+                {chat.lastMessage}
+              </Text>
+              {chat.unread > 0 ? (
+                <View style={[styles.badge, { backgroundColor: t.badgeUnread }]}>
+                  <Text style={[styles.badgeText, { color: t.badgeText }]}>{chat.unread}</Text>
+                </View>
+              ) : null}
+            </View>
+          </View>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -271,6 +333,12 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     minHeight: 72,
     alignItems: 'center',
+  },
+  rowBodyPressable: {
+    flex: 1,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    minHeight: 56,
   },
   separatorInset: {
     paddingLeft: 80,

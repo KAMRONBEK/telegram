@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
@@ -5,6 +6,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AppProvider } from '@/application/providers/AppProvider';
 import { useColorScheme } from '@/shared/lib/hooks';
@@ -38,7 +40,9 @@ export default function RootLayout() {
 
   return (
     <AppProvider>
-      <RootLayoutNav />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <RootLayoutNav />
+      </GestureHandlerRootView>
     </AppProvider>
   );
 }

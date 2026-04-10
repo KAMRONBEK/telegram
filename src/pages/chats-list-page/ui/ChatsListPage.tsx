@@ -22,7 +22,7 @@ import { ChatsList } from '@/widgets/chats-list';
 export type ChatsListPageProps = {
   splitMode?: boolean;
   splitChatId?: string | null;
-  /** Search field placeholder (e.g. web uses ⌘K). */
+  /** Search field placeholder. */
   searchPlaceholder?: string;
   /** Extra vertical padding for web search inputs. */
   searchInputPaddingVertical?: number;
@@ -31,7 +31,7 @@ export type ChatsListPageProps = {
 export function ChatsListPage({
   splitMode = false,
   splitChatId = null,
-  searchPlaceholder = 'Search',
+  searchPlaceholder = 'qotoq bormi qidirib',
   searchInputPaddingVertical = 0,
 }: ChatsListPageProps) {
   const scheme = useColorScheme();

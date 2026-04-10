@@ -11,7 +11,7 @@ export default function ChatsRoute() {
     <ChatsListPage
       splitMode={isWideWeb}
       splitChatId={chatId ? String(chatId) : null}
-      searchPlaceholder="Search (⌘K)"
+      searchPlaceholder="qotoq bormi qidirib"
       searchInputPaddingVertical={4}
     />
   );

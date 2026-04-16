@@ -48,6 +48,10 @@ export const appTheme = {
     fabShadow: 'rgba(0,0,0,0.2)',
     railBg: '#F0F0F0',
     railItemActive: 'rgba(51, 144, 236, 0.12)',
+    // Search input (standalone, not on nav bar) — iOS system fill
+    searchInputBg: 'rgba(118, 118, 128, 0.12)',
+    searchInputIcon: '#8E8E93',
+    searchInputPlaceholder: '#8E8E93',
     // Chat row context menu
     contextMenuBg: '#FFFFFF',
     contextMenuSeparator: 'rgba(0,0,0,0.08)',
@@ -94,6 +98,10 @@ export const appTheme = {
     fabShadow: 'rgba(0,0,0,0.4)',
     railBg: '#1C1C1E',
     railItemActive: 'rgba(106, 183, 255, 0.15)',
+    // Search input (standalone, not on nav bar) — iOS system fill (dark)
+    searchInputBg: 'rgba(0, 0, 0, 0.45)',
+    searchInputIcon: '#8E8E93',
+    searchInputPlaceholder: '#8E8E93',
     contextMenuBg: '#1C242F',
     contextMenuSeparator: '#2C3540',
     contextMenuDanger: '#FF595A',

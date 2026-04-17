@@ -1,14 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback, useState } from 'react';
-import {
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useGetChatsQuery } from '@/entities/chat';
@@ -16,6 +9,7 @@ import { ChatPage } from '@/pages/chat-page';
 import { appTheme } from '@/shared/config/theme';
 import { useBreakpoint, useSplitTabNavigation } from '@/shared/lib/hooks';
 import { useColorScheme } from '@/shared/lib/hooks';
+import { ChatNavigationBar } from '@/shared/ui';
 import { BOTTOM_TAB_BAR_HEIGHT } from '@/shared/ui/tabs-bottom-tab-bar';
 import { ChatsList } from '@/widgets/chats-list';
 
@@ -64,36 +58,20 @@ export function ChatsListPage({
 
   const column = (
     <View style={styles.column}>
-      <StatusBar style="light" />
-      <View style={[styles.navBar, { backgroundColor: t.navBar, paddingTop: insets.top }]}>
-        <View style={styles.navRow}>
-          <Pressable hitSlop={10} style={styles.navSide}>
-            <Text style={[styles.editLabel, { color: t.navBarSecondary }]}>Edit</Text>
-          </Pressable>
-          <Text style={[styles.navTitle, { color: t.navBarText }]}>Chats</Text>
-          <Pressable hitSlop={10} style={[styles.navSide, styles.navRight]} onPress={openFirstOrDemo}>
-            <Ionicons name="create-outline" size={26} color={t.navBarText} />
-          </Pressable>
-        </View>
-        <View style={[styles.searchRow, { backgroundColor: t.searchFieldBg }]}>
-          <Ionicons name="search" size={18} color={t.searchFieldPlaceholder} style={styles.searchIcon} />
-          <TextInput
-            style={[
-              styles.searchInput,
-              { color: t.navBarText, paddingVertical: searchInputPaddingVertical },
-            ]}
-            placeholder={searchPlaceholder}
-            placeholderTextColor={t.searchFieldPlaceholder}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            returnKeyType="search"
-            {...(Platform.OS === 'ios' ? { clearButtonMode: 'while-editing' as const } : {})}
-          />
-          <Pressable hitSlop={8}>
-            <Ionicons name="mic-outline" size={22} color={t.searchMic} />
-          </Pressable>
-        </View>
-      </View>
+      <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
+      <ChatNavigationBar
+        title="Chats"
+        leftText="Edit"
+        rightIcon="create-outline"
+        rightAccessibilityLabel="Open chat"
+        onRightPress={openFirstOrDemo}
+        search={{
+          value: searchQuery,
+          onChangeText: setSearchQuery,
+          placeholder: searchPlaceholder,
+          inputPaddingVertical: searchInputPaddingVertical,
+        }}
+      />
       <View style={[styles.body, { backgroundColor: t.chatListScreenBg }]}>
         <ChatsList
           onChatPress={onChatPress}
@@ -178,41 +156,6 @@ const styles = StyleSheet.create({
   },
   splitEmpty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
   splitEmptyTitle: { marginTop: 16, fontSize: 16, textAlign: 'center' },
-  navBar: {},
-  navRow: {
-    minHeight: 44,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 4,
-  },
-  navSide: {
-    width: 72,
-    justifyContent: 'center',
-    paddingHorizontal: 8,
-  },
-  navRight: { alignItems: 'flex-end' },
-  editLabel: { fontSize: 17 },
-  navTitle: {
-    flex: 1,
-    fontSize: 17,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  searchRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 12,
-    marginBottom: 10,
-    marginTop: 4,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderRadius: 10,
-  },
-  searchIcon: { marginRight: 8 },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-  },
   body: { flex: 1 },
   fab: {
     position: 'absolute',

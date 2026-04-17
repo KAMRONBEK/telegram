@@ -9,7 +9,7 @@ export default function ChatsRoute() {
     <ChatsListPage
       splitMode={false}
       splitChatId={chatId ? String(chatId) : null}
-      searchPlaceholder="qotoq bormi qidirib"
+      searchPlaceholder="Search for messages or users"
     />
   );
 }

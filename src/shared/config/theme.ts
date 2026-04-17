@@ -5,11 +5,13 @@
 export const appTheme = {
   light: {
     // Main nav (chat list top)
-    navBar: '#5288C3',
-    navBarText: '#FFFFFF',
-    navBarSecondary: 'rgba(255,255,255,0.85)',
+    navBar: 'rgba(246, 246, 246, 1)',
+    navBarText: '#000000',
+    navBarSecondary: '#3390EC',
+    /** Leading/trailing bar controls (e.g. Edit, compose). */
+    navBarSideItem: '#037EE5',
     // Chat list
-    chatListScreenBg: '#FFFFFF',
+    chatListScreenBg: 'rgba(246, 246, 246, 1)',
     chatListRow: '#FFFFFF',
     chatListRowPressed: '#E8E8E8',
     rowSeparator: 'rgba(0,0,0,0.08)',
@@ -36,7 +38,7 @@ export const appTheme = {
     textPrimary: '#000000',
     textSecondary: '#8E8E93',
     border: '#C8C7CC',
-    tabBar: '#F7F7F7',
+    tabBar: 'rgba(246, 246, 246, 1)',
     tint: '#3390EC',
     badgeUnread: '#4FA3F7',
     badgeText: '#FFFFFF',
@@ -48,6 +50,10 @@ export const appTheme = {
     fabShadow: 'rgba(0,0,0,0.2)',
     railBg: '#F0F0F0',
     railItemActive: 'rgba(51, 144, 236, 0.12)',
+    // Search input tokens (including use within navigation bars) — iOS system fill
+    searchInputBg: 'rgba(118, 118, 128, 0.12)',
+    searchInputIcon: '#8E8E93',
+    searchInputPlaceholder: '#8E8E93',
     // Chat row context menu
     contextMenuBg: '#FFFFFF',
     contextMenuSeparator: 'rgba(0,0,0,0.08)',
@@ -55,10 +61,11 @@ export const appTheme = {
     contextMenuBackdrop: 'rgba(0,0,0,0.2)',
   },
   dark: {
-    navBar: '#212D3B',
+    navBar: 'rgba(28, 28, 30, 1)',
     navBarText: '#FFFFFF',
     navBarSecondary: 'rgba(255,255,255,0.65)',
-    chatListScreenBg: '#0E1621',
+    navBarSideItem: '#FFFFFF',
+    chatListScreenBg: 'rgba(28, 28, 30, 1)',
     chatListRow: '#17212B',
     chatListRowPressed: '#1C2733',
     rowSeparator: 'rgba(255,255,255,0.06)',
@@ -82,7 +89,7 @@ export const appTheme = {
     textPrimary: '#FFFFFF',
     textSecondary: '#8E8E93',
     border: '#2B2B2B',
-    tabBar: '#17212B',
+    tabBar: 'rgba(28, 28, 30, 1)',
     tint: '#6AB7FF',
     badgeUnread: '#5288C3',
     badgeText: '#FFFFFF',
@@ -94,6 +101,10 @@ export const appTheme = {
     fabShadow: 'rgba(0,0,0,0.4)',
     railBg: '#1C1C1E',
     railItemActive: 'rgba(106, 183, 255, 0.15)',
+    // Search input tokens (including use within navigation bars) — iOS system fill (dark)
+    searchInputBg: 'rgba(0, 0, 0, 0.45)',
+    searchInputIcon: '#8E8E93',
+    searchInputPlaceholder: '#8E8E93',
     contextMenuBg: '#1C242F',
     contextMenuSeparator: '#2C3540',
     contextMenuDanger: '#FF595A',

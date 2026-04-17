@@ -65,6 +65,30 @@ export const lightTheme = createTheme({
       fontWeight: '700',
       color: 'badgeText',
     },
+    sectionLabel: {
+      fontSize: 15,
+      fontWeight: '500',
+      color: 'textSecondary',
+    },
+    chatRowTitle: {
+      fontSize: 17,
+      fontWeight: '500',
+      color: 'textPrimary',
+    },
+    chatRowPreview: {
+      fontSize: 16,
+      fontWeight: '400',
+      color: 'textSecondary',
+    },
+    chatRowTime: {
+      fontSize: 15,
+      color: 'messageTime',
+    },
+    chatRowBadge: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: 'badgeText',
+    },
   },
 });
 

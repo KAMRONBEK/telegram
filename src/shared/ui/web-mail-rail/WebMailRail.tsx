@@ -25,15 +25,15 @@ const RAIL_ITEMS: RailItem[] = [
     key: 'contacts',
     label: 'Contacts',
     href: '/(tabs)/contacts',
-    icon: 'people',
-    iconOutline: 'people-outline',
+    icon: 'person-circle',
+    iconOutline: 'person-circle-outline',
   },
   {
     key: 'calls',
     label: 'Calls',
     href: '/(tabs)/calls',
     icon: 'call',
-    iconOutline: 'call-outline',
+    iconOutline: 'call',
   },
   {
     key: 'index',
@@ -99,7 +99,7 @@ export function WebMailRail({ unreadCount = 0 }: WebMailRailProps) {
                 ) : (
                   <Ionicons
                     name={focused ? item.icon : item.iconOutline}
-                    size={24}
+                    size={item.key === 'contacts' ? 28 : 24}
                     color={focused ? colors.tint : colors.textSecondary}
                   />
                 )}

@@ -36,8 +36,8 @@ export default function TabLayout() {
           title: 'Contacts',
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
-              name={focused ? 'people' : 'people-outline'}
-              size={size ?? 24}
+              name={focused ? 'person-circle' : 'person-circle-outline'}
+              size={(size ?? 24) + 4}
               color={color}
             />
           ),
@@ -47,8 +47,8 @@ export default function TabLayout() {
         name="calls"
         options={{
           title: 'Calls',
-          tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons name={focused ? 'call' : 'call-outline'} size={size ?? 24} color={color} />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="call" size={size ?? 24} color={color} />
           ),
         }}
       />

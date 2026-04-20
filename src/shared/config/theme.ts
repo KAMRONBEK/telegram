@@ -61,6 +61,13 @@ export const appTheme = {
     contextMenuSeparator: 'rgba(0,0,0,0.08)',
     contextMenuDanger: '#FF3B30',
     contextMenuBackdrop: 'rgba(0,0,0,0.2)',
+    // Chat list swipe actions
+    chatListSwipeUnread: '#007ee5',
+    chatListSwipePin: '#00c900',
+    chatListSwipeMute: '#f09a37',
+    chatListSwipeArchive: '#bbbbc3',
+    chatListSwipeDelete: '#fe3b30',
+    chatListSwipeActionLabel: '#FFFFFF',
   },
   dark: {
     navBar: 'rgba(28, 28, 30, 1)',
@@ -113,6 +120,12 @@ export const appTheme = {
     contextMenuSeparator: '#2C3540',
     contextMenuDanger: '#FF595A',
     contextMenuBackdrop: 'rgba(0,0,0,0.35)',
+    chatListSwipeUnread: '#666666',
+    chatListSwipePin: '#08a723',
+    chatListSwipeMute: '#cd7800',
+    chatListSwipeArchive: '#666666',
+    chatListSwipeDelete: '#c60c0c',
+    chatListSwipeActionLabel: '#FFFFFF',
   },
 } as const;
 

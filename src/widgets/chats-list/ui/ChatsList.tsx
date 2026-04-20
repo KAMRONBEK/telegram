@@ -99,6 +99,7 @@ export function ChatsList({
             onOpenMenu={(anchor) => setMenu({ chatId: item.id, anchor })}
             onPeekOpen={() => setPeekChatId(item.id)}
             onPeekClose={() => setPeekChatId(null)}
+            onSwipeMenuAction={(action) => onMenuAction?.(action, item.id)}
           />
         )}
       />

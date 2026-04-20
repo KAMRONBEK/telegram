@@ -1,0 +1,31 @@
+---
+description: Prefer Shopify Restyle for UI layout, colors, spacing, and typography
+globs: src/**/*.tsx
+alwaysApply: false
+---
+
+# Shopify Restyle first
+
+When building or editing UI in `src/**/*.tsx`, **default to [@shopify/restyle](https://github.com/Shopify/restyle)** instead of ad-hoc `StyleSheet` / inline style objects.
+
+## Do this
+
+- Use `Box` and `Text` from `@/shared/ui/restyle` (or the `@/shared/ui` barrel) for structure and copy.
+- Use **theme tokens** for colors, spacing, and radii: e.g. `backgroundColor="chatListRow"`, `paddingHorizontal="md"`, `borderRadius="full"`.
+- Use **`useTheme<Theme>()`** when you need raw color strings (e.g. for icons, `react-native-gesture-handler` buttons, or APIs that only accept `string`).
+- Add new visual tokens in **`src/shared/config/theme.ts`** (both `light` and `dark`), then rely on them via Restyle — avoid one-off hex in components unless unavoidable.
+
+## Prefer Restyle for new shared UI
+
+- New reusable pieces under `src/shared/ui/**` should be Restyle-based unless a dependency forces otherwise.
+
+## Exceptions (StyleSheet / RN styles are OK)
+
+- **Third-party props** that require `StyleSheet` or a plain object (e.g. `Swipeable` `childrenContainerStyle`, some `Modal` / navigator options).
+- **`Animated`** styles or interpolations that Restyle does not own.
+- **`Platform.select`** blocks for shadows or platform-only quirks — keep them minimal; still use theme colors from `useTheme` where possible.
+
+## Anti-patterns
+
+- Large `StyleSheet.create` for screens or features that could be expressed with `Box` / `Text` + variants.
+- Hardcoded `#RRGGBB` for colors that belong in `appTheme` / Restyle `colors`.

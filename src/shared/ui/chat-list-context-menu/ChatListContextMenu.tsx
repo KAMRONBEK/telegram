@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -94,7 +94,8 @@ export function ChatListContextMenu({
       transparent
       animationType="fade"
       onRequestClose={onClose}
-      statusBarTranslucent={Platform.OS === 'android'}>
+      statusBarTranslucent={Platform.OS === 'android'}
+    >
       <View style={styles.modalRoot} pointerEvents="box-none">
         <Pressable
           accessibilityRole="button"
@@ -105,7 +106,8 @@ export function ChatListContextMenu({
         <View
           style={[styles.menuWrap, { left: position.left, top: position.top }]}
           onLayout={onMenuLayout}
-          pointerEvents="box-none">
+          pointerEvents="box-none"
+        >
           <View
             style={[
               styles.menu,
@@ -124,7 +126,8 @@ export function ChatListContextMenu({
                   },
                 }),
               },
-            ]}>
+            ]}
+          >
             {stack === 'root' ? (
               <RootMenu
                 scheme={scheme}
@@ -149,17 +152,21 @@ function Separator({ color }: { color: string }) {
 }
 
 type IonIconName = ComponentProps<typeof Ionicons>['name'];
+type AntIconName = ComponentProps<typeof AntDesign>['name'];
 
 type RowProps = {
   scheme: 'light' | 'dark';
   label: string;
-  icon: IonIconName;
   onPress: () => void;
   destructive?: boolean;
   showChevron?: boolean;
-};
+} & (
+  | { icon: IonIconName; iconFamily?: 'ionicons' }
+  | { icon: AntIconName; iconFamily: 'antdesign' }
+);
 
-function MenuRow({ scheme, label, icon, onPress, destructive, showChevron }: RowProps) {
+function MenuRow(props: RowProps) {
+  const { scheme, label, onPress, destructive, showChevron } = props;
   const t = appTheme[scheme];
   const color = destructive ? t.contextMenuDanger : t.textPrimary;
   return (
@@ -167,8 +174,13 @@ function MenuRow({ scheme, label, icon, onPress, destructive, showChevron }: Row
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={onPress}
-      style={({ pressed }) => [styles.row, pressed && { opacity: 0.75 }]}>
-      <Ionicons name={icon} size={ICON_SIZE} color={color} style={styles.rowIcon} />
+      style={({ pressed }) => [styles.row, pressed && { opacity: 0.75 }]}
+    >
+      {props.iconFamily === 'antdesign' ? (
+        <AntDesign name={props.icon} size={ICON_SIZE} color={color} style={styles.rowIcon} />
+      ) : (
+        <Ionicons name={props.icon} size={ICON_SIZE} color={color} style={styles.rowIcon} />
+      )}
       <Text style={[styles.rowLabel, { color }]} numberOfLines={1}>
         {label}
       </Text>
@@ -196,7 +208,8 @@ function SubmenuHeader({
       accessibilityRole="button"
       accessibilityLabel={`Back from ${title}`}
       onPress={onBack}
-      style={({ pressed }) => [styles.subHeader, pressed && { opacity: 0.75 }]}>
+      style={({ pressed }) => [styles.subHeader, pressed && { opacity: 0.75 }]}
+    >
       <Ionicons name="chevron-back" size={ICON_SIZE} color={t.tint} />
       <Text style={[styles.subHeaderTitle, { color: t.textPrimary }]}>{title}</Text>
     </Pressable>
@@ -224,18 +237,24 @@ function RootMenu({
         onPress={() => onAction('openInWindow')}
       />
       <Separator color={t.contextMenuSeparator} />
-      <MenuRow scheme={scheme} label="Pin" icon="pin-outline" onPress={() => onAction('pin')} />
+      <MenuRow
+        scheme={scheme}
+        label="Pin"
+        icon="pushpin"
+        iconFamily="antdesign"
+        onPress={() => onAction('pin')}
+      />
       <MenuRow
         scheme={scheme}
         label="Mute"
-        icon="notifications-off-outline"
+        icon="volume-mute-outline"
         onPress={onNavigateMute}
         showChevron
       />
       <MenuRow
         scheme={scheme}
         label="Mark as unread"
-        icon="chatbubble-ellipses-outline"
+        icon="chatbubble-outline"
         onPress={() => onAction('markUnread')}
       />
       <MenuRow
@@ -248,7 +267,7 @@ function RootMenu({
       <MenuRow
         scheme={scheme}
         label="Archive"
-        icon="archive-outline"
+        icon="file-tray-full-outline"
         onPress={() => onAction('archive')}
       />
       <MenuRow
@@ -268,7 +287,7 @@ function RootMenu({
       <MenuRow
         scheme={scheme}
         label="Delete chat"
-        icon="trash-outline"
+        icon="trash-bin-outline"
         destructive
         onPress={() => onAction('deleteChat')}
       />

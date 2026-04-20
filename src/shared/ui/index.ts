@@ -17,5 +17,12 @@ export {
 } from './restyle';
 export { SearchInput, type SearchInputProps } from './search-input';
 export { MonoText } from './StyledText';
+export {
+  SwipeActionStrip,
+  type SwipeActionStripIconName,
+  type SwipeActionStripItem,
+  type SwipeActionStripProps,
+  type SwipeActionStripSide
+} from './swipe-action-strip';
 export { Text, useThemeColor, View, type ViewProps } from './Themed';
 

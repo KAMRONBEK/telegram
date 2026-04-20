@@ -89,6 +89,10 @@ export const lightTheme = createTheme({
       fontWeight: '600',
       color: 'badgeText',
     },
+    swipeActionStripLabel: {
+      fontSize: 13,
+      fontWeight: '500',
+    },
   },
 });
 

@@ -8,6 +8,7 @@ export type ChatListMenuAction =
   | 'mute8h'
   | 'mute2d'
   | 'muteDisable'
+  | 'markRead'
   | 'markUnread'
   | 'preview'
   | 'archive'

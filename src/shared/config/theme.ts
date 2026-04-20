@@ -49,6 +49,8 @@ export const appTheme = {
     /** Chat row unread pill — muted conversation. */
     chatUnreadBadgeMutedBg: '#AEAEB2',
     chatUnreadBadgeLabel: '#FFFFFF',
+    /** Chat list row — double-tick read / delivered indicator (outgoing). */
+    chatReadReceiptTicks: '#21C004',
     searchFieldBg: 'rgba(255,255,255,0.22)',
     searchFieldPlaceholder: 'rgba(255,255,255,0.75)',
     searchMic: 'rgba(255,255,255,0.9)',
@@ -112,6 +114,7 @@ export const appTheme = {
     chatUnreadBadgeActiveBg: '#FFFFFF',
     chatUnreadBadgeMutedBg: '#636366',
     chatUnreadBadgeLabel: '#000000',
+    chatReadReceiptTicks: '#FFFFFF',
     searchFieldBg: 'rgba(255,255,255,0.12)',
     searchFieldPlaceholder: 'rgba(255,255,255,0.45)',
     searchMic: 'rgba(255,255,255,0.65)',

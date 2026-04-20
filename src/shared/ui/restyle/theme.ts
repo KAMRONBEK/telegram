@@ -89,6 +89,11 @@ export const lightTheme = createTheme({
       fontWeight: '600',
       color: 'badgeText',
     },
+    chatUnreadBadge: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: 'chatUnreadBadgeLabel',
+    },
     swipeActionStripLabel: {
       fontSize: 13,
       fontWeight: '500',

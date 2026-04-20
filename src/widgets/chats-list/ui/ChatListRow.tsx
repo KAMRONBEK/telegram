@@ -5,7 +5,7 @@ import { Animated, Dimensions, Easing, Platform, Pressable } from 'react-native'
 import { LongPressGestureHandler, State, Swipeable } from 'react-native-gesture-handler';
 
 import type { Chat } from '@/entities/chat';
-import { SwipeActionStrip, type SwipeActionStripItem } from '@/shared/ui';
+import { NewMessagesBadge, SwipeActionStrip, type SwipeActionStripItem } from '@/shared/ui';
 import { Avatar, avatarColor } from '@/shared/ui/avatar';
 import type { ChatListMenuAction } from '@/shared/ui/chat-list-context-menu';
 import { Box, Text as RestyleText, type Theme } from '@/shared/ui/restyle';
@@ -203,19 +203,7 @@ export function ChatListRow({
           <RestyleText variant="chatRowPreview" numberOfLines={1} flex={1} marginRight="sm">
             {chat.lastMessage}
           </RestyleText>
-          {chat.unread > 0 ? (
-            <Box
-              minWidth={20}
-              height={20}
-              borderRadius="full"
-              paddingHorizontal="xs"
-              alignItems="center"
-              justifyContent="center"
-              backgroundColor="badgeUnread"
-            >
-              <RestyleText variant="chatRowBadge">{chat.unread}</RestyleText>
-            </Box>
-          ) : null}
+          <NewMessagesBadge count={chat.unread} muted={chat.muted} />
         </Box>
       </Box>
     </Box>

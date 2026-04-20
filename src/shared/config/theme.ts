@@ -44,6 +44,11 @@ export const appTheme = {
     badgeUnread: '#4FA3F7',
     badgeDanger: '#FF3B30',
     badgeText: '#FFFFFF',
+    /** Chat row unread pill — unmuted (draws attention). */
+    chatUnreadBadgeActiveBg: '#037EE5',
+    /** Chat row unread pill — muted conversation. */
+    chatUnreadBadgeMutedBg: '#AEAEB2',
+    chatUnreadBadgeLabel: '#FFFFFF',
     searchFieldBg: 'rgba(255,255,255,0.22)',
     searchFieldPlaceholder: 'rgba(255,255,255,0.75)',
     searchMic: 'rgba(255,255,255,0.9)',
@@ -104,6 +109,9 @@ export const appTheme = {
     badgeUnread: '#5288C3',
     badgeDanger: '#FF453A',
     badgeText: '#FFFFFF',
+    chatUnreadBadgeActiveBg: '#FFFFFF',
+    chatUnreadBadgeMutedBg: '#636366',
+    chatUnreadBadgeLabel: '#000000',
     searchFieldBg: 'rgba(255,255,255,0.12)',
     searchFieldPlaceholder: 'rgba(255,255,255,0.45)',
     searchMic: 'rgba(255,255,255,0.65)',

@@ -5,7 +5,12 @@ import { Animated, Dimensions, Easing, Platform, Pressable } from 'react-native'
 import { LongPressGestureHandler, State, Swipeable } from 'react-native-gesture-handler';
 
 import type { Chat } from '@/entities/chat';
-import { NewMessagesBadge, SwipeActionStrip, type SwipeActionStripItem } from '@/shared/ui';
+import {
+  NewMessagesBadge,
+  ReadReceiptTicks,
+  SwipeActionStrip,
+  type SwipeActionStripItem,
+} from '@/shared/ui';
 import { Avatar, avatarColor } from '@/shared/ui/avatar';
 import type { ChatListMenuAction } from '@/shared/ui/chat-list-context-menu';
 import { Box, Text as RestyleText, type Theme } from '@/shared/ui/restyle';
@@ -149,8 +154,7 @@ export function ChatListRow({
         if (!rightArmedRef.current) return;
         rightArmedRef.current = false;
       }
-      const commitAction: ChatListMenuAction =
-        direction === 'left' ? leftPrimaryAction : 'archive';
+      const commitAction: ChatListMenuAction = direction === 'left' ? leftPrimaryAction : 'archive';
       const width = rowWidth > 0 ? rowWidth : Dimensions.get('window').width;
       // Left actions commit → row exits right (+). Right actions (archive) → exits left (−).
       const exitOffset = direction === 'left' ? width : -width;
@@ -197,7 +201,10 @@ export function ChatListRow({
           <RestyleText variant="chatRowTitle" numberOfLines={1} flex={1} marginRight="sm">
             {chat.title}
           </RestyleText>
-          <RestyleText variant="chatRowTime">{chat.time}</RestyleText>
+          <Box flexDirection="row" alignItems="center">
+            {chat.readReceipt !== undefined ? <ReadReceiptTicks read={chat.readReceipt} /> : null}
+            <RestyleText variant="chatRowTime">{chat.time}</RestyleText>
+          </Box>
         </Box>
         <Box flexDirection="row" alignItems="center" justifyContent="space-between">
           <RestyleText variant="chatRowPreview" numberOfLines={1} flex={1} marginRight="sm">
@@ -260,53 +267,53 @@ export function ChatListRow({
     >
       <Animated.View style={{ transform: [{ translateX: exitTranslateX }] }}>
         <Swipeable
-        ref={swipeableRef}
-        friction={1}
-        overshootLeft
-        overshootRight
-        overshootFriction={1}
-        useNativeAnimations={false}
-        enableTrackpadTwoFingerGesture
-        onSwipeableWillOpen={handleSwipeableWillOpen}
-        onSwipeableClose={handleSwipeableClose}
-        childrenContainerStyle={{ flex: 1, backgroundColor: colors.chatListRow }}
-        renderLeftActions={
-          rowWidth > 0
-            ? (progress, transX) => (
-                <SwipeActionStrip<ChatListMenuAction>
-                  actions={leftSwipeActions}
-                  labelColor={colors.chatListSwipeActionLabel}
-                  revealProgress={progress}
-                  transX={transX}
-                  side="left"
-                  basisWidth={rowWidth}
-                  primaryAction={leftPrimaryAction}
-                  onArmedChange={handleLeftArmedChange}
-                  onSelect={emitSwipe}
-                />
-              )
-            : undefined
-        }
-        renderRightActions={
-          rowWidth > 0
-            ? (progress, transX) => (
-                <SwipeActionStrip<ChatListMenuAction>
-                  actions={rightSwipeActions}
-                  labelColor={colors.chatListSwipeActionLabel}
-                  revealProgress={progress}
-                  transX={transX}
-                  side="right"
-                  basisWidth={rowWidth}
-                  primaryAction="archive"
-                  onArmedChange={handleRightArmedChange}
-                  onSelect={emitSwipe}
-                />
-              )
-            : undefined
-        }
-      >
-        {nativeRow}
-      </Swipeable>
+          ref={swipeableRef}
+          friction={1}
+          overshootLeft
+          overshootRight
+          overshootFriction={1}
+          useNativeAnimations={false}
+          enableTrackpadTwoFingerGesture
+          onSwipeableWillOpen={handleSwipeableWillOpen}
+          onSwipeableClose={handleSwipeableClose}
+          childrenContainerStyle={{ flex: 1, backgroundColor: colors.chatListRow }}
+          renderLeftActions={
+            rowWidth > 0
+              ? (progress, transX) => (
+                  <SwipeActionStrip<ChatListMenuAction>
+                    actions={leftSwipeActions}
+                    labelColor={colors.chatListSwipeActionLabel}
+                    revealProgress={progress}
+                    transX={transX}
+                    side="left"
+                    basisWidth={rowWidth}
+                    primaryAction={leftPrimaryAction}
+                    onArmedChange={handleLeftArmedChange}
+                    onSelect={emitSwipe}
+                  />
+                )
+              : undefined
+          }
+          renderRightActions={
+            rowWidth > 0
+              ? (progress, transX) => (
+                  <SwipeActionStrip<ChatListMenuAction>
+                    actions={rightSwipeActions}
+                    labelColor={colors.chatListSwipeActionLabel}
+                    revealProgress={progress}
+                    transX={transX}
+                    side="right"
+                    basisWidth={rowWidth}
+                    primaryAction="archive"
+                    onArmedChange={handleRightArmedChange}
+                    onSelect={emitSwipe}
+                  />
+                )
+              : undefined
+          }
+        >
+          {nativeRow}
+        </Swipeable>
       </Animated.View>
     </Box>
   );

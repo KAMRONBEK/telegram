@@ -9,6 +9,7 @@ const MOCK_CHATS: Chat[] = [
     lastMessage: 'See you at standup',
     time: '10:42',
     unread: 2,
+    readReceipt: false,
   },
   {
     id: '2',
@@ -16,6 +17,7 @@ const MOCK_CHATS: Chat[] = [
     lastMessage: 'Sent a photo',
     time: 'Yesterday',
     unread: 0,
+    readReceipt: true,
   },
 ];
 

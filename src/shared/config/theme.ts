@@ -77,6 +77,12 @@ export const appTheme = {
     chatListSwipeArchive: '#bbbbc3',
     chatListSwipeDelete: '#fe3b30',
     chatListSwipeActionLabel: '#FFFFFF',
+    /** Saved Messages row avatar — gradient top (sky blue). */
+    savedMessagesAvatarGradientTop: '#6FD4FC',
+    /** Saved Messages row avatar — gradient bottom (medium blue). */
+    savedMessagesAvatarGradientBottom: '#2B9EF0',
+    /** Saved Messages row avatar — bookmark glyph. */
+    savedMessagesAvatarIcon: '#FFFFFF',
   },
   dark: {
     navBar: 'rgba(28, 28, 30, 1)',
@@ -140,6 +146,9 @@ export const appTheme = {
     chatListSwipeArchive: '#666666',
     chatListSwipeDelete: '#c60c0c',
     chatListSwipeActionLabel: '#FFFFFF',
+    savedMessagesAvatarGradientTop: '#6FD4FC',
+    savedMessagesAvatarGradientBottom: '#2B9EF0',
+    savedMessagesAvatarIcon: '#FFFFFF',
   },
 } as const;
 

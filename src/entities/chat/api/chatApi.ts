@@ -4,6 +4,16 @@ import type { Chat } from '../model/types';
 
 const MOCK_CHATS: Chat[] = [
   {
+    id: 'saved',
+    savedMessages: true,
+    title: 'Saved Messages',
+    lastMessage: 'image.jpeg',
+    time: 'Fri',
+    unread: 0,
+    readReceipt: false,
+    muted: false,
+  },
+  {
     id: '1',
     title: 'Team',
     lastMessage: 'See you at standup',

@@ -21,6 +21,7 @@
     "expo-constants": "55.0.10-canary-20260327-0789fbc",
     "expo-dev-client": "55.0.20-canary-20260327-0789fbc",
     "expo-font": "55.0.5-canary-20260327-0789fbc",
+    "expo-linear-gradient": "55.0.10-canary-20260327-0789fbc",
     "expo-linking": "55.0.10-canary-20260327-0789fbc",
     "expo-router": "55.0.9-canary-20260327-0789fbc",
     "expo-splash-screen": "55.0.14-canary-20260327-0789fbc",

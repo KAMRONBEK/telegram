@@ -18,6 +18,11 @@ export {
   Text as RestyleText,
   type Theme
 } from './restyle';
+export {
+  SAVED_MESSAGES_AVATAR_DEFAULT_SIZE,
+  SavedMessagesAvatar,
+  type SavedMessagesAvatarProps,
+} from './saved-messages-avatar';
 export { SearchInput, type SearchInputProps } from './search-input';
 export { MonoText } from './StyledText';
 export {

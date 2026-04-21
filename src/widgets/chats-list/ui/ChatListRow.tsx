@@ -9,6 +9,7 @@ import {
   InlineMuteIcon,
   NewMessagesBadge,
   ReadReceiptTicks,
+  SavedMessagesAvatar,
   SwipeActionStrip,
   type SwipeActionStripItem,
 } from '@/shared/ui';
@@ -190,7 +191,11 @@ export function ChatListRow({
       backgroundColor={selected ? 'listItemActive' : 'chatListRow'}
     >
       <Box marginRight="md">
-        <Avatar size="large" name={chat.title} backgroundColor={avatarColor(chat.title)} />
+        {chat.savedMessages ? (
+          <SavedMessagesAvatar size={56} />
+        ) : (
+          <Avatar size="large" name={chat.title} backgroundColor={avatarColor(chat.title)} />
+        )}
       </Box>
       <Box flex={1} justifyContent="center" minHeight={56}>
         <Box

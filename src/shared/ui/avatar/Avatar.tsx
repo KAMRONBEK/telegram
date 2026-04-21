@@ -6,13 +6,13 @@ import { Box, Text, type Theme } from '@/shared/ui/restyle';
 
 const SIZES = {
   small: 24,
-  medium: 28,
+  medium: 36,
   large: 56,
 } as const;
 
 const FONT_SIZES = {
   small: 11,
-  medium: 13,
+  medium: 15,
   large: 22,
 } as const;
 
@@ -56,7 +56,8 @@ export function Avatar({
           borderWidth: 1.5,
           borderColor: focused ? colors.tint : 'transparent',
         },
-      ]}>
+      ]}
+    >
       {showImage ? (
         <Image
           source={{ uri }}

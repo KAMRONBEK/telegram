@@ -98,6 +98,20 @@ export const lightTheme = createTheme({
       fontSize: 13,
       fontWeight: '500',
     },
+    /** Chat peek / overlay modal top bar */
+    chatPeekHeaderTitle: {
+      fontSize: 17,
+      fontWeight: '600',
+      letterSpacing: -0.4,
+      color: 'navBarText',
+      textAlign: 'center',
+    },
+    chatPeekHeaderSubtitle: {
+      fontSize: 13,
+      marginTop: 'xxs',
+      color: 'textSecondary',
+      textAlign: 'center',
+    },
   },
 });
 

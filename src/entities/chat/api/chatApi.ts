@@ -16,6 +16,7 @@ const MOCK_CHATS: Chat[] = [
   {
     id: '1',
     title: 'Team',
+    subtitle: '3 members, 2 online',
     lastMessage: 'See you at standup',
     time: '10:42',
     unread: 2,
@@ -25,6 +26,7 @@ const MOCK_CHATS: Chat[] = [
   {
     id: '2',
     title: 'Alex',
+    subtitle: 'last seen just now',
     lastMessage: 'Sent a photo',
     time: 'Yesterday',
     unread: 0,

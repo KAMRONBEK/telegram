@@ -3,6 +3,8 @@ export type Chat = {
   /** When true, the row uses the Saved Messages gradient avatar instead of initials/photo. */
   savedMessages?: boolean;
   title: string;
+  /** Status line shown under the title in headers/peek overlays (e.g. "last seen recently", "online", "3 members"). */
+  subtitle?: string;
   lastMessage: string;
   time: string;
   unread: number;

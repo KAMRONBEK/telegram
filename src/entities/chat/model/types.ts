@@ -1,5 +1,7 @@
 export type Chat = {
   id: string;
+  /** When true, the row uses the Saved Messages gradient avatar instead of initials/photo. */
+  savedMessages?: boolean;
   title: string;
   lastMessage: string;
   time: string;

@@ -3503,6 +3503,11 @@ expo-keep-awake@55.0.5-canary-20260327-0789fbc:
   resolved "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-55.0.5-canary-20260327-0789fbc.tgz"
   integrity sha512-B5vlL0aNnVbheWrKpo5WMkzfbN4X/3YBLc6T8nIJz1I7jB+Uw3yOtJVPsOOo3hV/PDVLGPkwWtY8R5BFv/bn2A==
 
+expo-linear-gradient@55.0.10-canary-20260327-0789fbc:
+  version "55.0.10-canary-20260327-0789fbc"
+  resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-55.0.10-canary-20260327-0789fbc.tgz#6e6b6f7fdddfab1eea4c329af1cea40b1f117a79"
+  integrity sha512-jOLUVEFv8/xrt0IaGl98uTCAXVc1m+WesOuK8NDDcZAK6fT8iQcLjo8uBJo2KqWohjA9mmiECatehkt7xdXxAA==
+
 expo-linking@55.0.10-canary-20260327-0789fbc:
   version "55.0.10-canary-20260327-0789fbc"
   resolved "https://registry.npmjs.org/expo-linking/-/expo-linking-55.0.10-canary-20260327-0789fbc.tgz"

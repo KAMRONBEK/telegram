@@ -3,13 +3,11 @@ import { Platform, StyleSheet } from 'react-native';
 
 import type { Message } from '@/entities/message';
 import { useColorScheme } from '@/shared/lib/hooks';
+import { BUBBLE_READ_RECEIPT_ICON_SIZE, ReadReceiptTicks } from '@/shared/ui';
 import { Box, Text, type Theme } from '@/shared/ui/restyle';
 
-import {
-  getBubbleLayoutMetrics,
-  getBubbleShadowOpacity,
-  getMessageBubbleCornerRadii,
-} from '../lib/bubbleLayout';
+import { getBubbleContentMetrics, getBubbleShadowOpacity, getMessageBubbleCornerRadii } from '../lib/bubbleLayout';
+import { MessageImageAttachmentRow } from './MessageImageAttachmentRow';
 import { QuotedBlock } from './QuotedBlock';
 
 type Props = {
@@ -25,7 +23,9 @@ type Props = {
 export function MessageBubble({ isFirstInGroup, isLastInGroup, maxBubbleWidth, message }: Props) {
   const { borderRadii, colors, spacing } = useTheme<Theme>();
   const scheme = useColorScheme();
-  const { outgoing, text, time, replyTo } = message;
+  const { attachment, outgoing, readReceipt, replyTo, text, time } = message;
+  const caption = text.trim();
+  const hasImageAttachment = attachment?.kind === 'image';
 
   const cornerRadii = getMessageBubbleCornerRadii(
     isFirstInGroup,
@@ -34,9 +34,16 @@ export function MessageBubble({ isFirstInGroup, isLastInGroup, maxBubbleWidth, m
     borderRadii,
   );
 
-  const { contentWidth, mainTextMaxWidth, maxQuoteTextWidth } = getBubbleLayoutMetrics(
+  const {
+    contentWidth,
+    mainTextMaxWidth,
+    maxQuoteTextWidth,
+    paddingLeft: bubblePadLeft,
+    paddingRight: bubblePadRight,
+  } = getBubbleContentMetrics(
     maxBubbleWidth,
     spacing,
+    hasImageAttachment ? { paddingLeft: spacing.sm, paddingRight: spacing.md } : {},
   );
 
   const isLight = scheme === 'light';
@@ -47,11 +54,11 @@ export function MessageBubble({ isFirstInGroup, isLastInGroup, maxBubbleWidth, m
     <Box
       maxWidth={maxBubbleWidth}
       backgroundColor={outgoing ? 'bubbleOutgoing' : 'bubbleIncoming'}
-      paddingHorizontal="md"
       paddingTop="sm"
       paddingBottom="smd"
       alignSelf={outgoing ? 'flex-end' : 'flex-start'}
       style={[
+        { paddingLeft: bubblePadLeft, paddingRight: bubblePadRight },
         cornerRadii,
         showIncomingEdge
           ? { borderWidth: StyleSheet.hairlineWidth, borderColor: colors.bubbleBorder }
@@ -68,21 +75,40 @@ export function MessageBubble({ isFirstInGroup, isLastInGroup, maxBubbleWidth, m
         }),
       ]}>
       {replyTo ? <QuotedBlock maxQuoteTextWidth={maxQuoteTextWidth} replyTo={replyTo} /> : null}
-      <Box
-        flexDirection="row"
-        alignItems="flex-end"
-        maxWidth={contentWidth}
-        minWidth={0}>
-        <Text
-          variant="messageBody"
-          style={{ maxWidth: mainTextMaxWidth }}
-          allowFontScaling>
-          {text}
-        </Text>
-        <Text variant="messageBubbleTime" allowFontScaling>
-          {time}
-        </Text>
-      </Box>
+      {hasImageAttachment && attachment ? (
+        <MessageImageAttachmentRow
+          attachment={attachment}
+          embedStatus={!caption}
+          maxContentWidth={contentWidth}
+          outgoing={outgoing}
+          readReceipt={readReceipt}
+          time={time}
+        />
+      ) : null}
+      {caption ? (
+        <Box
+          flexDirection="row"
+          alignItems="flex-end"
+          maxWidth={contentWidth}
+          minWidth={0}
+          marginTop={hasImageAttachment ? 'sm' : undefined}>
+          <Text
+            variant="messageBody"
+            style={{ maxWidth: mainTextMaxWidth }}
+            allowFontScaling>
+            {caption}
+          </Text>
+          <Text
+            color={outgoing ? 'messageTimeOnBubbleOutgoing' : 'messageTimeOnBubble'}
+            variant="messageBubbleTime"
+            allowFontScaling>
+            {time}
+          </Text>
+          {outgoing && readReceipt !== undefined ? (
+            <ReadReceiptTicks iconSize={BUBBLE_READ_RECEIPT_ICON_SIZE} read={readReceipt} />
+          ) : null}
+        </Box>
+      ) : null}
     </Box>
   );
 }

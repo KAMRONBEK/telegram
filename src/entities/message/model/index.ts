@@ -1,5 +1,6 @@
 export type {
   Message,
+  MessageImageAttachment,
   QuotedAudio,
   QuotedFile,
   QuotedImage,

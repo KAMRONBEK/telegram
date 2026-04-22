@@ -17,6 +17,8 @@ const spacing = {
   messageQuoteBarWidth: 3,
   /** Quoted image/video preview in the reply strip (side length, px). */
   messageQuoteThumb: 40,
+  /** Thumbnail in an image-file attachment bubble (side length, px). */
+  messageAttachmentThumb: 72,
   /** Min width reserved for the timestamp on the last line (px). */
   messageBubbleTimeColumnReserve: 44,
   /** Message list horizontal inset (per side) — `LIST_H_PADDING` is `2 * this`. */
@@ -159,6 +161,22 @@ export const lightTheme = createTheme({
       lineHeight: 18,
       marginTop: 'xxs',
       color: 'messageReplyBody',
+    },
+    messageAttachmentName: {
+      fontSize: 15,
+      lineHeight: 20,
+      fontWeight: '600',
+      color: 'textPrimary',
+      flexShrink: 1,
+      minWidth: 0,
+    },
+    messageAttachmentSize: {
+      fontSize: 13,
+      lineHeight: 16,
+      marginTop: 'xxs',
+      color: 'textSecondary',
+      flexShrink: 1,
+      minWidth: 0,
     },
   },
 });

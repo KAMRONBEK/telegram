@@ -27,10 +27,16 @@ export const appTheme = {
     bubbleBorder: 'rgba(0,0,0,0.04)',
     messageTime: '#9B9B9B',
     messageTimeOnBubble: 'rgba(0,0,0,0.45)',
+    /** Timestamp on the current user’s bubble (light). */
+    messageTimeOnBubbleOutgoing: '#21C004',
     /** Inline reply bar + author (light: accent; matches `tint`). */
     messageReplyBar: '#3390EC',
     messageReplyAuthor: '#3390EC',
     messageReplyBody: '#000000',
+    /** Image-file attachment filename in the bubble (outgoing light bubble). */
+    messageImageAttachmentName: '#3EAA3C',
+    /** File size line on image attachment (outgoing light bubble). */
+    messageImageAttachmentSizeOutgoing: '#6FB26A',
     /** iOS (react-native) shadow; web uses `messageBubbleWebShadow` for `box-shadow`. */
     messageBubbleShadow: '#000000',
     /** Web: last color in `0 0.5px 1px <alpha>`. */
@@ -112,9 +118,12 @@ export const appTheme = {
     bubbleBorder: 'rgba(255,255,255,0.04)',
     messageTime: '#8E8E93',
     messageTimeOnBubble: 'rgba(255,255,255,0.55)',
+    messageTimeOnBubbleOutgoing: 'rgba(255,255,255,0.55)',
     messageReplyBar: 'rgba(255,255,255,0.55)',
     messageReplyAuthor: '#FFFFFF',
     messageReplyBody: 'rgba(255,255,255,0.85)',
+    messageImageAttachmentName: '#FFFFFF',
+    messageImageAttachmentSizeOutgoing: '#8E8E93',
     messageBubbleShadow: '#000000',
     messageBubbleWebShadow: 'rgba(0,0,0,0.32)',
     composerBar: '#17212B',

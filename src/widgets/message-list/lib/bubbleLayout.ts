@@ -5,17 +5,35 @@ const BUBBLE_SHADOW_OPACITY: Record<'light' | 'dark', number> = {
   dark: 0.2,
 };
 
+export type BubbleContentPadding = {
+  paddingLeft?: number;
+  paddingRight?: number;
+};
+
 /**
- * Text + quote widths from the list line and bubble shell.
- * Spacing must stay aligned with the bubble’s Restyle `paddingHorizontal="md"`,
- * `QuotedBlock` (`messageQuoteBarWidth` + `sm`), and time column reserve.
+ * Content width and text/quote line caps for the bubble interior.
+ * Defaults to symmetric `md` horizontal padding. For image-attachment rows, pass
+ * `paddingLeft: spacing.sm` so the thumb alignment matches the shell; pair with
+ * the same `paddingLeft` on the bubble container.
+ * Formulas stay aligned with `QuotedBlock` (`messageQuoteBarWidth` + `sm`) and the time column reserve.
  */
-export function getBubbleLayoutMetrics(maxBubbleWidth: number, spacing: Theme['spacing']) {
-  const paddingH = spacing.md * 2;
-  const contentWidth = Math.max(0, maxBubbleWidth - paddingH);
+export function getBubbleContentMetrics(
+  maxBubbleWidth: number,
+  spacing: Theme['spacing'],
+  padding: BubbleContentPadding = {}
+) {
+  const left = padding.paddingLeft ?? spacing.md;
+  const right = padding.paddingRight ?? spacing.md;
+  const contentWidth = Math.max(0, maxBubbleWidth - left - right);
   const maxQuoteTextWidth = Math.max(0, contentWidth - spacing.messageQuoteBarWidth - spacing.sm);
   const mainTextMaxWidth = Math.max(0, contentWidth - spacing.messageBubbleTimeColumnReserve);
-  return { contentWidth, mainTextMaxWidth, maxQuoteTextWidth };
+  return {
+    contentWidth,
+    mainTextMaxWidth,
+    maxQuoteTextWidth,
+    paddingLeft: left,
+    paddingRight: right,
+  };
 }
 
 export function getBubbleShadowOpacity(scheme: 'light' | 'dark'): number {
@@ -72,9 +90,9 @@ export function getMessageBubbleCornerRadii(
     if (outgoing) {
       return {
         borderTopLeftRadius: big,
-        borderTopRightRadius: t,
+        borderTopRightRadius: big,
         borderBottomLeftRadius: big,
-        borderBottomRightRadius: big,
+        borderBottomRightRadius: t,
       };
     }
     return {

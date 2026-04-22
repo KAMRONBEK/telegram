@@ -9,7 +9,11 @@ export { ExternalLink } from './ExternalLink';
 export { InlineMuteIcon } from './inline-mute-icon';
 export { ListRowSeparator, type ListRowSeparatorProps } from './list-row-separator';
 export { NewMessagesBadge, type NewMessagesBadgeProps } from './new-messages-badge';
-export { ReadReceiptTicks, type ReadReceiptTicksProps } from './read-receipt-ticks';
+export {
+  BUBBLE_READ_RECEIPT_ICON_SIZE,
+  ReadReceiptTicks,
+  type ReadReceiptTicksProps,
+} from './read-receipt-ticks';
 export {
   Box,
   darkTheme,

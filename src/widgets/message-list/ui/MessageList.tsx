@@ -43,6 +43,42 @@ const MOCK: Message[] = [
       previewUri: 'https://picsum.photos/seed/tes-quote/80/80',
     },
   },
+  {
+    id: 'm6',
+    chatId: '1',
+    text: 'I will be free tomorrow.',
+    outgoing: true,
+    time: '11:51',
+    readReceipt: true,
+  },
+  {
+    id: 'm7',
+    chatId: '1',
+    text: '',
+    outgoing: true,
+    time: '11:51',
+    readReceipt: true,
+    attachment: {
+      kind: 'image',
+      fileName: 'IMG_0483.PNG',
+      sizeLabel: '2.8 MB',
+      previewUri: 'https://picsum.photos/seed/tes-sushi/120/120',
+    },
+  },
+  {
+    id: 'm8',
+    chatId: '1',
+    text: '',
+    outgoing: false,
+    time: '11:52',
+    readReceipt: true,
+    attachment: {
+      kind: 'image',
+      fileName: 'IMG_0484.PNG',
+      sizeLabel: '1.2 MB',
+      previewUri: 'https://picsum.photos/seed/tes-noodles/120/120',
+    },
+  },
 ];
 
 type Props = {

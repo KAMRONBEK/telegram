@@ -40,6 +40,15 @@ export type QuotedMessageRef =
   | QuotedFile
   | QuotedAudio;
 
+/** Image sent as a file row (thumbnail + filename + size), Telegram-style. */
+export type MessageImageAttachment = {
+  kind: 'image';
+  fileName: string;
+  /** Human-readable size, e.g. `2.8 MB`. */
+  sizeLabel: string;
+  previewUri: string;
+};
+
 export type Message = {
   id: string;
   chatId: string;
@@ -48,4 +57,7 @@ export type Message = {
   time: string;
   /** Message this one replies to (thread / quote preview in the bubble). */
   replyTo?: QuotedMessageRef;
+  attachment?: MessageImageAttachment;
+  /** When set on outgoing messages, shows checkmarks next to the status line. */
+  readReceipt?: boolean;
 };

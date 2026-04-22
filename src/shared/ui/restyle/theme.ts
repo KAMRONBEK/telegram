@@ -11,7 +11,17 @@ const spacing = {
   xxs: 2,
   xs: 4,
   sm: 8,
+  smd: 6,
   md: 12,
+  /** Vertical line beside quoted text (px); pair with `sm` for bar→text gap. */
+  messageQuoteBarWidth: 3,
+  /** Quoted image/video preview in the reply strip (side length, px). */
+  messageQuoteThumb: 40,
+  /** Min width reserved for the timestamp on the last line (px). */
+  messageBubbleTimeColumnReserve: 44,
+  /** Message list horizontal inset (per side) — `LIST_H_PADDING` is `2 * this`. */
+  messageListH: 10,
+  messageListV: 12,
   lg: 16,
   xl: 24,
   '2xl': 32,
@@ -19,9 +29,19 @@ const spacing = {
 
 const borderRadii = {
   none: 0,
+  xs: 4,
   sm: 8,
   md: 10,
   lg: 12,
+  /** Default bubble corner (non-cluster or inner corners). */
+  messageBubble: 16,
+  /**
+   * Outer top corner of the first message in a group (slightly “tighter” before a true tail / SVG).
+   * Incoming: top-left. Outgoing: top-right.
+   */
+  messageBubbleGroupAnchor: 2,
+  /** Thin strip beside quoted-reply line. */
+  messageQuoteBar: 2,
   full: 9999,
 } as const;
 
@@ -111,6 +131,34 @@ export const lightTheme = createTheme({
       marginTop: 'xxs',
       color: 'textSecondary',
       textAlign: 'center',
+    },
+    messageBody: {
+      fontSize: 16,
+      lineHeight: 21,
+      color: 'textPrimary',
+      flexShrink: 1,
+      minWidth: 0,
+    },
+    messageBubbleTime: {
+      fontSize: 11,
+      lineHeight: 16,
+      fontStyle: 'italic',
+      fontWeight: '500',
+      color: 'messageTimeOnBubble',
+      marginLeft: 'smd',
+      flexShrink: 0,
+    },
+    messageReplyAuthor: {
+      fontSize: 14,
+      lineHeight: 18,
+      fontWeight: '600',
+      color: 'messageReplyAuthor',
+    },
+    messageReplyBody: {
+      fontSize: 14,
+      lineHeight: 18,
+      marginTop: 'xxs',
+      color: 'messageReplyBody',
     },
   },
 });

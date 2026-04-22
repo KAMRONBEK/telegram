@@ -20,11 +20,21 @@ export const appTheme = {
     headerBar: '#5288C3',
     headerText: '#FFFFFF',
     headerSubtitle: 'rgba(255,255,255,0.75)',
-    bubbleOutgoing: '#E1FFC7',
+    /** Current user (outgoing) message bubble. */
+    bubbleOutgoing: '#E1FEC6',
+    /** Other user (incoming) message bubble. */
     bubbleIncoming: '#FFFFFF',
     bubbleBorder: 'rgba(0,0,0,0.04)',
     messageTime: '#9B9B9B',
     messageTimeOnBubble: 'rgba(0,0,0,0.45)',
+    /** Inline reply bar + author (light: accent; matches `tint`). */
+    messageReplyBar: '#3390EC',
+    messageReplyAuthor: '#3390EC',
+    messageReplyBody: '#000000',
+    /** iOS (react-native) shadow; web uses `messageBubbleWebShadow` for `box-shadow`. */
+    messageBubbleShadow: '#000000',
+    /** Web: last color in `0 0.5px 1px <alpha>`. */
+    messageBubbleWebShadow: 'rgba(0,0,0,0.12)',
     // Composer
     composerBar: '#F7F7F7',
     composerField: '#FFFFFF',
@@ -97,11 +107,16 @@ export const appTheme = {
     headerBar: '#212D3B',
     headerText: '#FFFFFF',
     headerSubtitle: 'rgba(255,255,255,0.55)',
-    bubbleOutgoing: '#456A93',
-    bubbleIncoming: '#182533',
+    bubbleOutgoing: '#313131',
+    bubbleIncoming: '#262628',
     bubbleBorder: 'rgba(255,255,255,0.04)',
     messageTime: '#8E8E93',
     messageTimeOnBubble: 'rgba(255,255,255,0.55)',
+    messageReplyBar: 'rgba(255,255,255,0.55)',
+    messageReplyAuthor: '#FFFFFF',
+    messageReplyBody: 'rgba(255,255,255,0.85)',
+    messageBubbleShadow: '#000000',
+    messageBubbleWebShadow: 'rgba(0,0,0,0.32)',
     composerBar: '#17212B',
     composerField: '#0E1621',
     composerFieldBorder: 'rgba(255,255,255,0.08)',

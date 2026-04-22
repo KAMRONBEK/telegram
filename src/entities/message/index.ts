@@ -1,1 +1,9 @@
-export type { Message } from './model';
+export type {
+  Message,
+  QuotedAudio,
+  QuotedFile,
+  QuotedImage,
+  QuotedMessageRef,
+  QuotedText,
+  QuotedVideo,
+} from './model';

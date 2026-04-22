@@ -1,8 +1,16 @@
-import { FlatList, Platform, StyleSheet, Text, View } from 'react-native';
+import { useTheme } from '@shopify/restyle';
+import { useCallback, useMemo, useState } from 'react';
+import {
+  FlatList,
+  type LayoutChangeEvent,
+  type ListRenderItemInfo,
+  useWindowDimensions,
+} from 'react-native';
 
 import type { Message } from '@/entities/message';
-import { appTheme } from '@/shared/config/theme';
-import { useColorScheme } from '@/shared/lib/hooks';
+import { Box, type Theme } from '@/shared/ui/restyle';
+
+import { MessageBubble } from './MessageBubble';
 
 const MOCK: Message[] = [
   { id: 'm1', chatId: '1', text: 'Hey — ready for the release?', outgoing: false, time: '10:38' },
@@ -14,6 +22,27 @@ const MOCK: Message[] = [
     outgoing: false,
     time: '10:40',
   },
+  {
+    id: 'm4',
+    chatId: '1',
+    text: 'I will be free tomorrow.',
+    outgoing: false,
+    time: '10:41',
+    replyTo: { kind: 'image', authorName: 'John Doe', caption: 'Photo' },
+  },
+  {
+    id: 'm5',
+    chatId: '1',
+    text: "Do you know what time is it? When you are free, let's go to the gym.",
+    outgoing: false,
+    time: '11:40',
+    replyTo: {
+      kind: 'image',
+      authorName: 'Martha Craig',
+      caption: 'Good morning!',
+      previewUri: 'https://picsum.photos/seed/tes-quote/80/80',
+    },
+  },
 ];
 
 type Props = {
@@ -23,77 +52,61 @@ type Props = {
 };
 
 export function MessageList({ chatId, scrollEnabled = true }: Props) {
-  const scheme = useColorScheme();
-  const t = appTheme[scheme];
-  const data = MOCK.filter((m) => m.chatId === chatId);
+  const { colors, spacing } = useTheme<Theme>();
+  const data = useMemo(() => MOCK.filter((m) => m.chatId === chatId), [chatId]);
+  const { width: windowWidth } = useWindowDimensions();
+  const [lineWidth, setLineWidth] = useState(0);
+  const listHPad = spacing.messageListH * 2;
+  const listBodyWidth = lineWidth > 0 ? lineWidth : Math.max(0, windowWidth - listHPad);
+  const maxBubbleWidth = Math.max(120, listBodyWidth * 0.78);
+
+  const onListLayout = useCallback((e: LayoutChangeEvent) => {
+    const w = e.nativeEvent.layout.width;
+    if (w > 0) setLineWidth((prev) => (Math.abs(w - prev) < 0.5 ? prev : w));
+  }, []);
+
+  const renderItem = useCallback(
+    ({ index, item }: ListRenderItemInfo<Message>) => {
+      const prev = index > 0 ? data[index - 1] : null;
+      const next = index < data.length - 1 ? data[index + 1] : null;
+      const isFirstInGroup = !prev || prev.outgoing !== item.outgoing;
+      const isLastInGroup = !next || next.outgoing !== item.outgoing;
+      return (
+        <Box
+          width="100%"
+          style={{ marginBottom: spacing.xs }}
+          flexDirection="row"
+          justifyContent={item.outgoing ? 'flex-end' : 'flex-start'}
+        >
+          <MessageBubble
+            isFirstInGroup={isFirstInGroup}
+            isLastInGroup={isLastInGroup}
+            maxBubbleWidth={maxBubbleWidth}
+            message={item}
+          />
+        </Box>
+      );
+    },
+    [data, maxBubbleWidth, spacing.xs]
+  );
+
+  const keyExtractor = useCallback((item: Message) => item.id, []);
 
   return (
-    <FlatList
-      data={data}
-      keyExtractor={(item) => item.id}
-      scrollEnabled={scrollEnabled}
-      contentContainerStyle={[styles.list, { backgroundColor: t.chatWallpaper }]}
-      renderItem={({ item, index }) => {
-        const prev = index > 0 ? data[index - 1] : null;
-        const gap = prev && prev.outgoing === item.outgoing ? 2 : 10;
-        return (
-          <View style={{ marginBottom: gap }}>
-            <View style={[styles.row, item.outgoing ? styles.rowOut : styles.rowIn]}>
-              <View
-                style={[
-                  styles.bubble,
-                  {
-                    backgroundColor: item.outgoing ? t.bubbleOutgoing : t.bubbleIncoming,
-                    borderWidth: scheme === 'light' && !item.outgoing ? StyleSheet.hairlineWidth : 0,
-                    borderColor: t.bubbleBorder,
-                    ...Platform.select({
-                      ios: {
-                        shadowColor: '#000',
-                        shadowOffset: { width: 0, height: 0.5 },
-                        shadowOpacity: scheme === 'light' ? 0.12 : 0.2,
-                        shadowRadius: 1,
-                      },
-                      android: { elevation: 1 },
-                      default: {},
-                    }),
-                  },
-                ]}>
-                <Text style={[styles.messageText, { color: t.textPrimary }]}>{item.text}</Text>
-                <View style={styles.meta}>
-                  <Text style={[styles.time, { color: t.messageTimeOnBubble }]}>{item.time}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        );
-      }}
-    />
+    <Box flex={1} width="100%" onLayout={onListLayout}>
+      <FlatList
+        style={{ flex: 1, width: '100%' }}
+        data={data}
+        keyExtractor={keyExtractor}
+        scrollEnabled={scrollEnabled}
+        contentContainerStyle={{
+          flexGrow: 1,
+          backgroundColor: colors.chatWallpaper,
+          paddingHorizontal: spacing.messageListH,
+          paddingVertical: spacing.messageListV,
+        }}
+        renderItem={renderItem}
+      />
+    </Box>
   );
 }
-
-const styles = StyleSheet.create({
-  list: { paddingHorizontal: 10, paddingVertical: 12, flexGrow: 1 },
-  row: { flexDirection: 'row' },
-  rowOut: { justifyContent: 'flex-end' },
-  rowIn: { justifyContent: 'flex-start' },
-  bubble: {
-    maxWidth: '78%',
-    borderRadius: 16,
-    paddingHorizontal: 12,
-    paddingTop: 8,
-    paddingBottom: 6,
-  },
-  messageText: {
-    fontSize: 16,
-    lineHeight: 21,
-  },
-  meta: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 2,
-  },
-  time: {
-    fontSize: 11,
-    fontWeight: '500',
-  },
-});

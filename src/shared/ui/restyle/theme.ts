@@ -35,6 +35,10 @@ const borderRadii = {
   sm: 8,
   md: 10,
   lg: 12,
+  /** Chat row long-press action sheet (iOS-style grouped card). */
+  actionSheet: 20,
+  /** Long-press modal chat preview (peek) panel corners. */
+  chatPeek: 14,
   /** Default bubble corner (non-cluster or inner corners). */
   messageBubble: 16,
   /**
@@ -119,6 +123,20 @@ export const lightTheme = createTheme({
     swipeActionStripLabel: {
       fontSize: 13,
       fontWeight: '500',
+    },
+    actionSheetLabel: {
+      fontSize: 17,
+      fontWeight: '500',
+      letterSpacing: -0.2,
+      color: 'textPrimary',
+      flexShrink: 1,
+    },
+    actionSheetLabelDestructive: {
+      fontSize: 17,
+      fontWeight: '500',
+      letterSpacing: -0.2,
+      color: 'contextMenuDanger',
+      flexShrink: 1,
     },
     /** Chat peek / overlay modal top bar */
     chatPeekHeaderTitle: {

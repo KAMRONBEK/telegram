@@ -22,8 +22,9 @@ export type ChatListRowProps = {
   selected?: boolean;
   onPress: () => void;
   onOpenMenu: (anchor: { x: number; y: number }) => void;
-  onPeekOpen: () => void;
-  onPeekClose: () => void;
+  /** Optional — used if you re-enable long-press peek in a parent modal. */
+  onPeekOpen?: () => void;
+  onPeekClose?: () => void;
   /** Fired when the user chooses a swipe action (same actions as the row context menu). */
   onSwipeMenuAction?: (action: ChatListMenuAction) => void;
 };
@@ -47,7 +48,7 @@ export function ChatListRow({
   selected = false,
   onPress,
   onOpenMenu,
-  onPeekOpen,
+  onPeekOpen: _onPeekOpen,
   onPeekClose,
   onSwipeMenuAction,
 }: ChatListRowProps) {
@@ -124,14 +125,22 @@ export function ChatListRow({
     onOpenMenu({ x: pageX, y: pageY });
   };
 
+  /** Native: RNGH `LongPressGestureHandler` often wins over `Pressable`’s `onLongPress`, so the menu must open from the handler’s ACTIVE state. */
+  const openMenuFromRowRef = useCallback(() => {
+    rowRef.current?.measureInWindow((left, top, width, height) => {
+      onOpenMenu({ x: left + width / 2, y: top + height / 2 });
+    });
+  }, [onOpenMenu]);
+
   const onPeekStateChange = (state: number) => {
     if (Platform.OS === 'web') return;
     if (state === State.ACTIVE) {
       skipNextTap.current = true;
-      onPeekOpen();
+      openMenuFromRowRef();
+      // Native: one modal (`ChatListRowContextModal`) shows peek + action menu; no second overlay.
     }
     if (state === State.END || state === State.CANCELLED || state === State.FAILED) {
-      onPeekClose();
+      onPeekClose?.();
     }
   };
 
@@ -251,11 +260,15 @@ export function ChatListRow({
       onPressOut={() => {
         isLongPressing.current = false;
       }}
-      onLongPress={(e) => {
-        isLongPressing.current = false;
-        openMenuAtEvent(e);
-      }}
-      delayLongPress={450}
+      {...(Platform.OS === 'web'
+        ? {
+            onLongPress: (e: GestureResponderEvent) => {
+              isLongPressing.current = false;
+              openMenuAtEvent(e);
+            },
+            delayLongPress: 450,
+          }
+        : {})}
       style={({ pressed }) => {
         if (!pressed) return IDLE_STYLE;
         if (isLongPressing.current) return { opacity: 0.5, backgroundColor: undefined };

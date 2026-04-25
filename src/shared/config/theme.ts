@@ -86,6 +86,15 @@ export const appTheme = {
     contextMenuSeparator: 'rgba(0,0,0,0.08)',
     contextMenuDanger: '#FF3B30',
     contextMenuBackdrop: 'rgba(0,0,0,0.2)',
+    /** Grouped “action sheet” surface (chat row long-press menu). */
+    actionSheetSurface: '#F2F2F7',
+    actionSheetSeparator: '#D1D1D6',
+    /** Dimmed area behind the chat row action sheet (separate from the compact context menu). */
+    actionSheetBackdrop: 'rgba(0,0,0,0.35)',
+    /** Native long-press peek + menu modal — scrim outside the cards. */
+    chatListContextModalBackdrop: 'rgba(133, 142, 150, 0.5)',
+    /** Web / composited shadow color for long-press chat peek card. */
+    chatPeekDropShadow: 'rgba(0,0,0,0.35)',
     // Chat list swipe actions
     chatListSwipeUnread: '#007ee5',
     chatListSwipePin: '#00c900',
@@ -164,6 +173,17 @@ export const appTheme = {
     contextMenuSeparator: '#2C3540',
     contextMenuDanger: '#FF595A',
     contextMenuBackdrop: 'rgba(0,0,0,0.35)',
+    actionSheetSurface: '#2C2C2E',
+    actionSheetSeparator: 'rgba(84, 84, 88, 0.48)',
+    /**
+     * `rgba(0,0,0,α)` over pure-black rows (#000) does not change the output pixel (alpha-blend math).
+     * A subtle white haze is visible on dark UI (iOS / Telegram-style sheet dim).
+     */
+    actionSheetBackdrop: 'rgba(255, 255, 255, 0.16)',
+    /** Native long-press peek + menu modal — scrim outside the cards. */
+    chatListContextModalBackdrop: 'rgba(0, 0, 0, 0.6)',
+    /** Web `box-shadow` last color (large peek / modal cards, combined with x/y/radius in code). */
+    chatPeekDropShadow: 'rgba(0,0,0,0.35)',
     chatListSwipeUnread: '#666666',
     chatListSwipePin: '#08a723',
     chatListSwipeMute: '#cd7800',

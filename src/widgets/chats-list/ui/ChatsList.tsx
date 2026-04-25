@@ -4,13 +4,13 @@ import { useMemo, useState } from 'react';
 import { ActivityIndicator, FlatList, Platform } from 'react-native';
 
 import { useGetChatsQuery } from '@/entities/chat';
-import { useColorScheme } from '@/shared/lib/hooks';
-import { ChatListContextMenu, type ChatListMenuAction } from '@/shared/ui/chat-list-context-menu';
+import type { ChatListMenuAction } from '@/shared/ui/chat-list-context-menu';
+import { ChatRowActionSheet } from '@/shared/ui/chat-row-action-sheet';
 import { ListRowSeparator } from '@/shared/ui/list-row-separator';
 import { Box, Text, type Theme } from '@/shared/ui/restyle';
 
 import { ChatListRow } from './ChatListRow';
-import { ChatPeekOverlay } from './ChatPeekOverlay';
+import { ChatListRowContextModal } from './ChatListRowContextModal';
 
 export type ChatsListProps = {
   /** When set, called instead of navigating to `/chat/[id]` (e.g. wide web split). */
@@ -30,13 +30,11 @@ export function ChatsList({
   onMenuAction,
 }: ChatsListProps) {
   const router = useRouter();
-  const scheme = useColorScheme();
   const { colors } = useTheme<Theme>();
   const { data, isLoading, isError } = useGetChatsQuery();
   const [menu, setMenu] = useState<null | { chatId: string; anchor: { x: number; y: number } }>(
     null
   );
-  const [peekChatId, setPeekChatId] = useState<string | null>(null);
 
   const rows = useMemo(() => {
     if (!data) return [];
@@ -97,24 +95,26 @@ export function ChatsList({
             selected={item.id === selectedChatId}
             onPress={() => handlePress(item.id)}
             onOpenMenu={(anchor) => setMenu({ chatId: item.id, anchor })}
-            onPeekOpen={() => setPeekChatId(item.id)}
-            onPeekClose={() => setPeekChatId(null)}
             onSwipeMenuAction={(action) => onMenuAction?.(action, item.id)}
           />
         )}
       />
-      {menu !== null ? (
-        <ChatListContextMenu
+      {menu !== null && Platform.OS === 'web' ? (
+        <ChatRowActionSheet
           visible
           onClose={() => setMenu(null)}
           anchor={menu.anchor}
-          scheme={scheme}
           chatId={menu.chatId}
-          onMenuAction={onMenuAction}
+          onAction={onMenuAction}
         />
       ) : null}
-      {peekChatId !== null && Platform.OS !== 'web' ? (
-        <ChatPeekOverlay visible chatId={peekChatId} scheme={scheme} />
+      {menu !== null && Platform.OS !== 'web' ? (
+        <ChatListRowContextModal
+          visible
+          onClose={() => setMenu(null)}
+          chatId={menu.chatId}
+          onAction={onMenuAction}
+        />
       ) : null}
     </>
   );

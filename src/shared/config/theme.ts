@@ -117,6 +117,8 @@ export const appTheme = {
     themePickerActiveBorder: '#037EE5',
     /** Appearance — theme picker tile idle preview outline. */
     themePickerInactiveBorder: 'rgba(120, 120, 128, 0.2)',
+    /** Settings — horizontal color theme tile carousel strip. */
+    colorThemeCarouselStrip: '#FFFFFF',
   },
   dark: {
     navBar: 'rgba(28, 28, 30, 1)',
@@ -206,6 +208,7 @@ export const appTheme = {
     savedMessagesAvatarIcon: '#FFFFFF',
     themePickerActiveBorder: '#037EE5',
     themePickerInactiveBorder: 'rgba(120, 120, 128, 0.2)',
+    colorThemeCarouselStrip: '#1C1C1D',
   },
 } as const;
 
@@ -243,3 +246,66 @@ export const themePickerTilePresets = {
     bubbleOutgoing: '#3E6A97',
   },
 } as const satisfies Record<string, ThemePickerTilePreview>;
+
+export type ColorThemeOptionId = keyof typeof themePickerTilePresets;
+
+/** Order and labels for the appearance color-theme picker + live preview. */
+export const colorThemeOptions: { id: ColorThemeOptionId; label: string }[] = [
+  { id: 'classic', label: 'Classic' },
+  { id: 'day', label: 'Day' },
+  { id: 'night', label: 'Night' },
+  { id: 'tintedBlue', label: 'Tinted' },
+];
+
+/**
+ * Typography / chrome colors for the theme preview message block (not part of app light/dark scheme).
+ * Paired with {@link themePickerTilePresets} for each option.
+ */
+export type ThemePreviewCopyPalette = {
+  messageText: string;
+  replyBar: string;
+  replyAuthor: string;
+  replyBody: string;
+  timeIncoming: string;
+  timeOnOutgoing: string;
+  readReceipt: string;
+};
+
+export const themePreviewCopyPalettes = {
+  classic: {
+    messageText: '#000000',
+    replyBar: '#3390EC',
+    replyAuthor: '#3390EC',
+    replyBody: '#000000',
+    timeIncoming: 'rgba(0,0,0,0.45)',
+    timeOnOutgoing: '#21C004',
+    readReceipt: '#21C004',
+  },
+  day: {
+    messageText: '#000000',
+    replyBar: '#057AFE',
+    replyAuthor: '#057AFE',
+    replyBody: '#000000',
+    timeIncoming: 'rgba(0,0,0,0.45)',
+    timeOnOutgoing: '#FFFFFF',
+    readReceipt: '#FFFFFF',
+  },
+  night: {
+    messageText: '#FFFFFF',
+    replyBar: 'rgba(255,255,255,0.55)',
+    replyAuthor: '#FFFFFF',
+    replyBody: 'rgba(255,255,255,0.85)',
+    timeIncoming: 'rgba(255,255,255,0.55)',
+    timeOnOutgoing: 'rgba(255,255,255,0.55)',
+    readReceipt: '#FFFFFF',
+  },
+  tintedBlue: {
+    messageText: '#FFFFFF',
+    replyBar: '#6AB7FF',
+    replyAuthor: '#6AB7FF',
+    replyBody: 'rgba(255,255,255,0.9)',
+    timeIncoming: 'rgba(255,255,255,0.55)',
+    timeOnOutgoing: 'rgba(255,255,255,0.55)',
+    readReceipt: '#FFFFFF',
+  },
+} as const satisfies Record<ColorThemeOptionId, ThemePreviewCopyPalette>;

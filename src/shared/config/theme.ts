@@ -144,6 +144,12 @@ export const appTheme = {
     settingsRowBg: '#FFFFFF',
     /** Settings — row pressed state. */
     settingsRowPressed: '#E8E8E8',
+    /** Settings toggle row — track when off (`Switch` track / `ios_backgroundColor`). */
+    settingsToggleTrackOff: '#E9E9EA',
+    /** Settings toggle row — track when on (iOS / Android accent). */
+    settingsToggleTrackOn: '#34C759',
+    /** Settings toggle row — knob fill. */
+    settingsToggleThumb: '#FFFFFF',
     /** Sticker set picker row surface (idle / pressed). */
     stickerSetRowBg: '#FFFFFF',
     stickerSetRowPressed: '#E8E8E8',
@@ -254,6 +260,12 @@ export const appTheme = {
     settingsRowBg: '#1C1C1D',
     /** Settings — row pressed state. */
     settingsRowPressed: '#2C2C2E',
+    /** Settings toggle row — track when off. */
+    settingsToggleTrackOff: '#39393D',
+    /** Settings toggle row — track when on (dark scheme). */
+    settingsToggleTrackOn: '#30D158',
+    /** Settings toggle row — knob fill. */
+    settingsToggleThumb: '#FFFFFF',
     /** Sticker set picker row surface (idle / pressed). */
     stickerSetRowBg: '#1C1C1D',
     stickerSetRowPressed: '#2C2C2E',

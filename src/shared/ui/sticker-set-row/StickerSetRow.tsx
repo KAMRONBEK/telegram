@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { PressableProps } from 'react-native';
 import { Image } from 'react-native';
 
+import { ListRowSeparator } from '@/shared/ui/list-row-separator';
 import { Box, PressableBox, Text, type Theme } from '@/shared/ui/restyle';
 
 /** Pack artwork / fallback initial — matches sticker picker density. */
@@ -67,8 +68,7 @@ export function StickerSetRow({
       ? formatStickerSubtitle(stickerCount)
       : undefined);
 
-  const dividerInset =
-    dividerInsetLeftProp ?? spacing.lg + THUMB_SIZE + spacing.md;
+  const dividerInset = dividerInsetLeftProp ?? spacing.lg + THUMB_SIZE + spacing.md;
 
   const placeholderLetter = name?.slice(0, 1).toUpperCase() ?? title.slice(0, 1).toUpperCase();
   const showImage = !!imageUri && !imgFailed;
@@ -129,23 +129,12 @@ export function StickerSetRow({
           {inner}
         </PressableBox>
       ) : (
-        <Box
-          accessible
-          accessibilityLabel={rowAccessibilityLabel}
-          testID={testID}
-          {...ROW_LAYOUT}
-        >
+        <Box accessible accessibilityLabel={rowAccessibilityLabel} testID={testID} {...ROW_LAYOUT}>
           {inner}
         </Box>
       )}
       {showDivider ? (
-        <Box backgroundColor="stickerSetRowBg">
-          <Box
-            height={1}
-            backgroundColor="rowSeparator"
-            style={dividerInset > 0 ? { marginLeft: dividerInset } : undefined}
-          />
-        </Box>
+        <ListRowSeparator insetLeft={dividerInset} backgroundColor="stickerSetRowBg" />
       ) : null}
     </Box>
   );

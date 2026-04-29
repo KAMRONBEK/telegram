@@ -11,8 +11,7 @@ import { BOTTOM_TAB_BAR_HEIGHT } from '@/shared/ui/tabs-bottom-tab-bar';
 const CHEVRON_SIZE = 22;
 const AVATAR_PX = 36;
 /** iOS-style nav row; web matches bottom tab bar (`BOTTOM_TAB_BAR_HEIGHT`) for split-pane alignment. */
-const NAV_ROW_HEIGHT =
-  Platform.OS === 'web' ? BOTTOM_TAB_BAR_HEIGHT : 44;
+const NAV_ROW_HEIGHT = Platform.OS === 'web' ? BOTTOM_TAB_BAR_HEIGHT : 44;
 
 export type ChatThreadNavigationBarProps = {
   title: string;
@@ -44,24 +43,24 @@ export function ChatThreadNavigationBar({
 
   const leftControl =
     onBackPress == null ? null : (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={`Back to ${backLabel}`}
-      hitSlop={12}
-      onPress={onBackPress}
-      style={styles.backPressable}
-    >
-      <Box flexDirection="row" alignItems="center">
-        <Ionicons name="chevron-back" size={CHEVRON_SIZE} color={backTint} />
-        <Text
-          variant="navSideLabel"
-          style={[styles.backLabel, { color: backTint }]}
-          numberOfLines={1}
-        >
-          {backLabel}
-        </Text>
-      </Box>
-    </Pressable>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`Back to ${backLabel}`}
+        hitSlop={12}
+        onPress={onBackPress}
+        style={styles.backPressable}
+      >
+        <Box flexDirection="row" alignItems="center">
+          <Ionicons name="chevron-back" size={CHEVRON_SIZE} color={backTint} />
+          <Text
+            variant="navSideLabel"
+            style={[styles.backLabel, { color: backTint }]}
+            numberOfLines={1}
+          >
+            {backLabel}
+          </Text>
+        </Box>
+      </Pressable>
     );
 
   const avatar = savedMessages ? (

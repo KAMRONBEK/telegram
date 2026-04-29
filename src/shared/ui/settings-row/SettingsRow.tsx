@@ -2,9 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@shopify/restyle';
 import type { PressableProps } from 'react-native';
 
+import { ListRowSeparator } from '@/shared/ui/list-row-separator';
 import { Box, PressableBox, Text, type Theme } from '@/shared/ui/restyle';
 
-const ROW_MIN_HEIGHT = 44;
+import { SETTINGS_ROW_MIN_HEIGHT } from './constants';
+
 const CHEVRON_SIZE = 20;
 
 export type SettingsRowProps = {
@@ -53,7 +55,7 @@ export function SettingsRow({
         testID={testID}
         backgroundColor="settingsRowBg"
         paddingHorizontal="lg"
-        minHeight={ROW_MIN_HEIGHT}
+        minHeight={SETTINGS_ROW_MIN_HEIGHT}
         flexDirection="row"
         alignItems="center"
         style={({ pressed }) =>
@@ -92,13 +94,7 @@ export function SettingsRow({
         ) : null}
       </PressableBox>
       {showDivider ? (
-        <Box backgroundColor="settingsRowBg">
-          <Box
-            height={1}
-            backgroundColor="rowSeparator"
-            style={dividerInset > 0 ? { marginLeft: dividerInset } : undefined}
-          />
-        </Box>
+        <ListRowSeparator insetLeft={dividerInset} backgroundColor="settingsRowBg" />
       ) : null}
     </Box>
   );

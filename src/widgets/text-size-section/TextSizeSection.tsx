@@ -5,9 +5,9 @@ import { StyleSheet } from 'react-native';
 import { safeAsyncStorageGetItem, safeAsyncStorageSetItem } from '@/shared/lib/safe-async-storage';
 import { Box, Text, type Theme } from '@/shared/ui/restyle';
 import {
-  TEXT_SIZE_DEFAULT_LEVEL_INDEX,
-  TEXT_SIZE_MAX_LEVEL_INDEX,
-  TextSizeSlider,
+    TEXT_SIZE_DEFAULT_LEVEL_INDEX,
+    TEXT_SIZE_MAX_LEVEL_INDEX,
+    TextSizeSlider,
 } from '@/shared/ui/text-size-slider';
 
 const STORAGE_KEY = '@TESChat/appearanceTextSizeLevel';

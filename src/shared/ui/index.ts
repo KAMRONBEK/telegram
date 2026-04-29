@@ -1,9 +1,4 @@
 export {
-  colorThemeOptions,
-  themePickerTilePresets, type ColorThemeOptionId, type ThemePickerTilePreview,
-  type ThemePreviewCopyPalette
-} from '@/shared/config/theme';
-export {
   ChatNavigationBar,
   type ChatNavigationBarProps,
   type ChatNavigationBarSearchConfig,
@@ -67,4 +62,10 @@ export {
 } from './text-size-slider';
 export { ThemePickerTile, type ThemePickerTileProps } from './theme-picker-tile';
 export { Text, useThemeColor, View, type ViewProps } from './Themed';
+export { ToggleSwitchRow, type ToggleSwitchRowProps } from './toggle-switch-row';
+export {
+type ColorThemeOptionId,   colorThemeOptions,
+  themePickerTilePresets, type ThemePickerTilePreview,
+  type ThemePreviewCopyPalette
+} from '@/shared/config/theme';
 

@@ -6,6 +6,11 @@ export type SettingsRowGroupProps = {
   children: ReactNode;
   /** Uppercase caption above the card (e.g. “Appearance”). */
   sectionTitle?: string;
+  /**
+   * Background behind the section title row (screen tone on settings-style pages).
+   * Defaults to `chatListScreenBg` so the heading matches the scroll area.
+   */
+  headingBackgroundColor?: keyof Theme['colors'];
   marginHorizontal?: keyof Theme['spacing'];
   marginTop?: keyof Theme['spacing'];
   marginBottom?: keyof Theme['spacing'];
@@ -22,6 +27,7 @@ export type SettingsRowGroupProps = {
 export function SettingsRowGroup({
   children,
   sectionTitle,
+  headingBackgroundColor = 'chatListScreenBg',
   marginHorizontal = 'none',
   marginTop = 'none',
   marginBottom = 'none',
@@ -38,16 +44,13 @@ export function SettingsRowGroup({
       testID={testID}
     >
       {showHeading ? (
-        <Box paddingHorizontal="lg" paddingTop="md" paddingBottom="sm">
-          <Text
-            fontSize={13}
-            fontWeight="600"
-            letterSpacing={0.6}
-            textTransform="uppercase"
-            color="textSecondary"
-          >
-            {sectionTitle}
-          </Text>
+        <Box
+          paddingHorizontal="lg"
+          paddingTop="md"
+          paddingBottom="sm"
+          backgroundColor={headingBackgroundColor}
+        >
+          <Text variant="stickerSetSectionHeading">{sectionTitle}</Text>
         </Box>
       ) : null}
       <Box

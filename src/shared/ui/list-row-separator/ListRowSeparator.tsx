@@ -12,12 +12,11 @@ export function ListRowSeparator({
   backgroundColor = 'chatListRow',
 }: ListRowSeparatorProps) {
   return (
-    <Box backgroundColor={backgroundColor}>
-      <Box
-        height={1}
-        backgroundColor="rowSeparator"
-        style={insetLeft > 0 ? { marginLeft: insetLeft } : undefined}
-      />
+    <Box backgroundColor={backgroundColor} alignSelf="stretch">
+      <Box flexDirection="row" alignSelf="stretch">
+        {insetLeft > 0 ? <Box width={insetLeft} flexShrink={0} /> : null}
+        <Box flex={1} height={1} backgroundColor="rowSeparator" />
+      </Box>
     </Box>
   );
 }

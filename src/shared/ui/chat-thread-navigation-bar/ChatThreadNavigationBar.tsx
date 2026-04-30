@@ -3,13 +3,13 @@ import { useTheme } from '@shopify/restyle';
 import { Platform, Pressable, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Avatar, avatarColor } from '@/shared/ui/avatar';
+import { Avatar, AVATAR_PX as AVATAR_SIZES_PX, avatarColor } from '@/shared/ui/avatar';
 import { Box, Text, type Theme } from '@/shared/ui/restyle';
 import { SavedMessagesAvatar } from '@/shared/ui/saved-messages-avatar';
 import { BOTTOM_TAB_BAR_HEIGHT } from '@/shared/ui/tabs-bottom-tab-bar';
 
 const CHEVRON_SIZE = 22;
-const AVATAR_PX = 36;
+const AVATAR_PX = AVATAR_SIZES_PX.thirtySix;
 /** iOS-style nav row; web matches bottom tab bar (`BOTTOM_TAB_BAR_HEIGHT`) for split-pane alignment. */
 const NAV_ROW_HEIGHT = Platform.OS === 'web' ? BOTTOM_TAB_BAR_HEIGHT : 44;
 
@@ -66,7 +66,7 @@ export function ChatThreadNavigationBar({
   const avatar = savedMessages ? (
     <SavedMessagesAvatar size={AVATAR_PX} />
   ) : (
-    <Avatar size="medium" uri={avatarUri} name={title} backgroundColor={avatarColor(title)} />
+    <Avatar size="thirtySix" uri={avatarUri} name={title} backgroundColor={avatarColor(title)} />
   );
 
   return (

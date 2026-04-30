@@ -8,7 +8,7 @@ import { Box, type Theme } from '@/shared/ui/restyle';
 export const SAVED_MESSAGES_AVATAR_DEFAULT_SIZE = 60;
 
 export type SavedMessagesAvatarProps = {
-  /** Circle diameter in px. Use `56` to align with `Avatar` `large` in chat rows. */
+  /** Circle diameter in px; omit for default ({@link SAVED_MESSAGES_AVATAR_DEFAULT_SIZE}), matching `Avatar` `sixty`. */
   size?: number;
 };
 

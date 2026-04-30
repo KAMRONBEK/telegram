@@ -8,6 +8,11 @@ export {
   ChatThreadNavigationBar,
   type ChatThreadNavigationBarProps
 } from './chat-thread-navigation-bar';
+export {
+  ContactListRow,
+  contactListRowDividerInsetLeft,
+  type ContactListRowProps
+} from './contact-list-row';
 export { CustomStatusBar } from './custom-status-bar';
 export { ExternalLink } from './ExternalLink';
 export { InlineMuteIcon } from './inline-mute-icon';

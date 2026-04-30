@@ -13,7 +13,7 @@ import {
   SwipeActionStrip,
   type SwipeActionStripItem,
 } from '@/shared/ui';
-import { Avatar, avatarColor } from '@/shared/ui/avatar';
+import { Avatar, AVATAR_PX, avatarColor } from '@/shared/ui/avatar';
 import type { ChatListMenuAction } from '@/shared/ui/chat-list-context-menu';
 import { Box, Text as RestyleText, type Theme } from '@/shared/ui/restyle';
 
@@ -201,9 +201,9 @@ export function ChatListRow({
     >
       <Box marginRight="md">
         {chat.savedMessages ? (
-          <SavedMessagesAvatar size={56} />
+          <SavedMessagesAvatar size={AVATAR_PX.sixty} />
         ) : (
-          <Avatar size="large" name={chat.title} backgroundColor={avatarColor(chat.title)} />
+          <Avatar size="sixty" name={chat.title} backgroundColor={avatarColor(chat.title)} />
         )}
       </Box>
       <Box flex={1} justifyContent="center" minHeight={56}>

@@ -33,7 +33,8 @@ export default function TabLayout() {
         tabBarLabelPosition: 'below-icon',
         tabBarLabelStyle: { fontSize: 10, fontWeight: '500', marginTop: 2 },
         headerShown: false,
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="contacts"
         options={{
@@ -51,9 +52,7 @@ export default function TabLayout() {
         name="calls"
         options={{
           title: 'Calls',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="call" size={size ?? 24} color={color} />
-          ),
+          tabBarIcon: ({ color, size }) => <Ionicons name="call" size={size ?? 24} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -80,12 +79,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => (
-            <Avatar
-              size="medium"
-              uri={PLACEHOLDER_AVATAR_URI}
-              bordered
-              focused={focused}
-            />
+            <Avatar size="twentySix" uri={PLACEHOLDER_AVATAR_URI} bordered focused={focused} />
           ),
         }}
       />

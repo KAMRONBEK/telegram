@@ -4,19 +4,23 @@ import { Image } from 'react-native';
 
 import { Box, Text, type Theme } from '@/shared/ui/restyle';
 
-const SIZES = {
-  small: 24,
-  medium: 36,
-  large: 56,
+export const AVATAR_PX = {
+  twentySix: 26,
+  thirtySix: 36,
+  forty: 40,
+  sixty: 60,
+  sixtySix: 66,
 } as const;
 
-const FONT_SIZES = {
-  small: 11,
-  medium: 15,
-  large: 22,
-} as const;
+export type AvatarSize = keyof typeof AVATAR_PX;
 
-export type AvatarSize = keyof typeof SIZES;
+const FONT_SIZES: Record<AvatarSize, number> = {
+  twentySix: 13,
+  thirtySix: 15,
+  forty: 17,
+  sixty: 23,
+  sixtySix: 26,
+};
 
 type AvatarProps = {
   size: AvatarSize;
@@ -36,7 +40,7 @@ export function Avatar({
   focused = false,
 }: AvatarProps) {
   const { colors } = useTheme<Theme>();
-  const px = SIZES[size];
+  const px = AVATAR_PX[size];
   const [imgFailed, setImgFailed] = useState(false);
 
   const showImage = !!uri && !imgFailed;

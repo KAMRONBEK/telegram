@@ -91,7 +91,7 @@ export function WebMailRail({ unreadCount = 0 }: WebMailRailProps) {
               <Box>
                 {item.avatar ? (
                   <Avatar
-                    size="small"
+                    size="forty"
                     uri={PLACEHOLDER_AVATAR_URI}
                     bordered
                     focused={focused}

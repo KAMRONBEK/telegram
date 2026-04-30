@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { Avatar, avatarColor } from '@/shared/ui/avatar';
+import { Avatar, AVATAR_PX as AVATAR_SIZES_PX, avatarColor } from '@/shared/ui/avatar';
 import { Box, Text } from '@/shared/ui/restyle';
 import { SavedMessagesAvatar } from '@/shared/ui/saved-messages-avatar';
 
-/** Matches `Avatar` `large` (56) — used for `SavedMessagesAvatar` and layout column width. */
-const AVATAR_PX = 36;
+/** Matches `Avatar` `thirtySix` — used for `SavedMessagesAvatar` and layout column width. */
+const AVATAR_PX = AVATAR_SIZES_PX.thirtySix;
 
 type Props = {
   title: string;
@@ -39,7 +39,7 @@ export function ChatPeekHeader({ title, subtitle, savedMessages = false }: Props
         {savedMessages ? (
           <SavedMessagesAvatar size={AVATAR_PX} />
         ) : (
-          <Avatar size="medium" name={title} backgroundColor={avatarColor(title)} />
+          <Avatar size="thirtySix" name={title} backgroundColor={avatarColor(title)} />
         )}
       </Box>
     </Box>

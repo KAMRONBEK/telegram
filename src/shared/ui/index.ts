@@ -3,6 +3,13 @@ export {
   themePickerTilePresets, type ColorThemeOptionId, type ThemePickerTilePreview,
   type ThemePreviewCopyPalette
 } from '@/shared/config/theme';
+export { Avatar, avatarColor, AVATAR_PX, type AvatarSize } from './avatar';
+export {
+  CallListRow,
+  callListRowDividerInsetLeft,
+  type CallListRowProps,
+  type CallType
+} from './call-list-row';
 export {
   ChatNavigationBar,
   type ChatNavigationBarProps,

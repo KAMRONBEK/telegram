@@ -158,6 +158,8 @@ export const appTheme = {
      * Light: iOS system blue; icon + label share this color.
      */
     contactActionRowAccent: '#007AFF',
+    /** Calls — missed call name + icon color (light). */
+    callMissed: '#FE3B30',
   },
   dark: {
     navBar: 'rgba(28, 28, 30, 1)',
@@ -276,6 +278,8 @@ export const appTheme = {
     stickerSetRowPressed: '#2C2C2E',
     /** Contacts — action row icon + label on dark lists (high contrast on black rows). */
     contactActionRowAccent: '#FFFFFF',
+    /** Calls — missed call name + icon color (dark). */
+    callMissed: '#EB5545',
   },
 } as const;
 
